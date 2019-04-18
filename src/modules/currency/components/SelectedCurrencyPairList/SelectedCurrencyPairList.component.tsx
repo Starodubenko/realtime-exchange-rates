@@ -1,9 +1,8 @@
 import React, {PureComponent} from "react";
 import {connect} from "react-redux";
 import {AppState} from "../../../common";
-import {PeriodSelector} from "../PeriodSelector";
 
-import s from "./SettingList.module.scss";
+import s from "./SelectedCurrencyPairList.module.scss";
 
 interface InputProps {}
 
@@ -15,7 +14,7 @@ type Props = StateProps & DispatchProps & InputProps
 
 interface OwnState {}
 
-export class SettingListComponent extends PureComponent<Props, OwnState> {
+class SelectedCurrencyPairListComponent extends PureComponent<Props, OwnState> {
 
   static defaultProps = {};
 
@@ -23,8 +22,7 @@ export class SettingListComponent extends PureComponent<Props, OwnState> {
     return (
         <div className={s.Root}>
           <div className={s.Row}>
-            <span>Data refresh period</span>
-            <span><PeriodSelector /></span>
+
           </div>
         </div>
     );
@@ -37,4 +35,4 @@ const mapStateToProps = (state: AppState, ownProps: InputProps): StateProps => {
 
 const mapDispatchToProps: DispatchProps = {};
 
-export const SettingList = connect<StateProps, DispatchProps, InputProps, AppState>(mapStateToProps, mapDispatchToProps)(SettingListComponent);
+export const SelectedCurrencyPairList = connect<StateProps, DispatchProps, InputProps, AppState>(mapStateToProps, mapDispatchToProps)(SelectedCurrencyPairListComponent);

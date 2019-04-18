@@ -1,4 +1,4 @@
-import React, {ChangeEvent, Component} from 'react';
+import React, {ChangeEvent, PureComponent} from 'react';
 import {connect} from "react-redux";
 import {AppState, Period} from "../../../common";
 import {updateSettingsAction} from "../../state/actions";
@@ -19,7 +19,7 @@ type Props = StateProps & DispatchProps & InputProps
 
 interface OwnState {}
 
-export class PeriodSelectorComponent extends Component<Props, OwnState> {
+export class PeriodSelectorComponent extends PureComponent<Props, OwnState> {
 
     static defaultProps = {};
 

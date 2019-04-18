@@ -7,6 +7,7 @@ import {hasSettings} from "../modules/settings/state/selectors";
 import {appInitAction} from "./state";
 
 import s from './App.module.scss';
+import {CurrencyPairSelector} from "../modules/currency/components/CurrencyPairSelector";
 
 
 interface InputProps {
@@ -29,9 +30,17 @@ export class AppComponent extends Component<Props, OwnState> {
 
     static defaultProps = {};
 
+    onPairChange = (primaryCurrencyId: string, secondaryPairId: string) => {
+        console.log(primaryCurrencyId + " : " + secondaryPairId);
+    };
+
+
     renderApp = () => {
         return this.props.hasSettings
-            ? <SettingList/>
+            ? <div>
+                <SettingList/>
+                <CurrencyPairSelector onPairChange={this.onPairChange}/>
+              </div>
             : 'Settings are fetching...';
     };
 

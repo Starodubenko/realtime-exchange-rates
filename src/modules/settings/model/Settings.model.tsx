@@ -1,10 +1,10 @@
-import {AbstractEntity} from "../../common";
+import {AbstractEntity, Period} from "../../common";
 
 export class Settings extends AbstractEntity {
     /**
         Rates refresh period
     */
-    period: number;
+    period: Period;
 
     constructor(id: string, period: number) {
         super(id);
