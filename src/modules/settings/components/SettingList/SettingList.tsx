@@ -1,6 +1,6 @@
 import React, {PureComponent} from "react";
 import {connect} from "react-redux";
-import {AppState} from "../../../common";
+import {RootState} from "../../../common";
 import {PeriodSelector} from "../PeriodSelector";
 
 import s from "./SettingList.module.scss";
@@ -31,10 +31,10 @@ export class SettingListComponent extends PureComponent<Props, OwnState> {
   }
 }
 
-const mapStateToProps = (state: AppState, ownProps: InputProps): StateProps => {
+const mapStateToProps = (state: RootState, ownProps: InputProps): StateProps => {
   return {};
 };
 
 const mapDispatchToProps: DispatchProps = {};
 
-export const SettingList = connect<StateProps, DispatchProps, InputProps, AppState>(mapStateToProps, mapDispatchToProps)(SettingListComponent);
+export const SettingList = connect<StateProps, DispatchProps, InputProps, RootState>(mapStateToProps, mapDispatchToProps)(SettingListComponent);

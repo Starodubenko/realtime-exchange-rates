@@ -1,6 +1,6 @@
 import React, {PureComponent} from "react";
 import {connect} from "react-redux";
-import {AppState} from "../../../common";
+import {RootState} from "../../../common";
 
 import s from "./SelectedCurrencyPairList.module.scss";
 
@@ -29,10 +29,10 @@ class SelectedCurrencyPairListComponent extends PureComponent<Props, OwnState> {
   }
 }
 
-const mapStateToProps = (state: AppState, ownProps: InputProps): StateProps => {
+const mapStateToProps = (state: RootState, ownProps: InputProps): StateProps => {
   return {};
 };
 
 const mapDispatchToProps: DispatchProps = {};
 
-export const SelectedCurrencyPairList = connect<StateProps, DispatchProps, InputProps, AppState>(mapStateToProps, mapDispatchToProps)(SelectedCurrencyPairListComponent);
+export const SelectedCurrencyPairList = connect<StateProps, DispatchProps, InputProps, RootState>(mapStateToProps, mapDispatchToProps)(SelectedCurrencyPairListComponent);

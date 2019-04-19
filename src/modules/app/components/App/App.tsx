@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {ActionFunctionAny} from "redux-actions";
-import {AppState} from "../modules/common";
-import {hasSettings} from "../modules/settings/state/selectors";
-import {appInitAction} from "./state";
+import {RootState} from "../../../common";
+import {hasSettings} from "../../../settings/state/selectors";
+import {appInitAction} from "../../state";
 import {Route, Switch} from "react-router";
-import {MainPage} from "../modules/page/components/MainPage";
+import {MainPage} from "../../../page/components/MainPage";
 
 import s from './App.module.scss';
 
@@ -51,7 +51,7 @@ export class AppComponent extends Component<Props, OwnState> {
     }
 }
 
-const mapStateToProps = (state: AppState, ownProps: InputProps): StateProps => {
+const mapStateToProps = (state: RootState, ownProps: InputProps): StateProps => {
     return {
         hasSettings: hasSettings(state)
     };
@@ -61,5 +61,5 @@ const mapDispatchToProps: DispatchProps = {
     appInitAction,
 };
 
-export const App = connect<StateProps, DispatchProps, InputProps, AppState>(mapStateToProps, mapDispatchToProps)(AppComponent);
+export const App = connect<StateProps, DispatchProps, InputProps, RootState>(mapStateToProps, mapDispatchToProps)(AppComponent);
 

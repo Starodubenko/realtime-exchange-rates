@@ -6,8 +6,6 @@ export type ReduxOrmModelReducer<P, ORMState extends ORMCommonState> = (action: 
 export function createReduxOrmModelReducer<HandlersMap, P, ORMState extends ORMCommonState>
                                           (map: HandlersMap): ReduxOrmModelReducer<P, ORMState> {
     return (action: Action<P>, model: any, session: SessionWithModels<ORMState>) => {
-        // const modelName = model.modelName;
-        // const handlerKey = `${modelName}/${action.type}`;
         const handler = map[action.type];
         handler && handler(action, model, session);
     }

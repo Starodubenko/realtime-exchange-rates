@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import {connect} from "react-redux";
-import {AppState} from "../../../common";
+import {RootState} from "../../../common";
 
 import s from './CurrencyPairSelector.module.scss';
 import {RerSelect, RerSelectItem} from "../../../common/components/rerSelect";
@@ -83,7 +83,7 @@ export class CurrencyPairSelectorComponent extends PureComponent<Props, OwnState
     };
 }
 
-const mapStateToProps = (state: AppState, ownProps: InputProps): StateProps => {
+const mapStateToProps = (state: RootState, ownProps: InputProps): StateProps => {
     return {
         currencyList: currencyListSelector(state),
     };
@@ -91,4 +91,4 @@ const mapStateToProps = (state: AppState, ownProps: InputProps): StateProps => {
 
 const mapDispatchToProps: DispatchProps = {};
 
-export const CurrencyPairSelector = connect<StateProps, DispatchProps, InputProps, AppState>(mapStateToProps, mapDispatchToProps)(CurrencyPairSelectorComponent);
+export const CurrencyPairSelector = connect<StateProps, DispatchProps, InputProps, RootState>(mapStateToProps, mapDispatchToProps)(CurrencyPairSelectorComponent);

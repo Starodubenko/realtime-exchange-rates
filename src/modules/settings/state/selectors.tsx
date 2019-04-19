@@ -1,8 +1,8 @@
 import {createSelector} from "redux-orm";
 import {appStateOrm, dbStateSelector} from "../../store/store.orm";
-import {AppState} from "../../common";
+import {RootState} from "../../common";
 
-export const settingListSelector = (appState: AppState) => createSelector(
+export const settingListSelector = (appState: RootState) => createSelector(
     appStateOrm,
     dbStateSelector,
     session => {
@@ -17,7 +17,7 @@ export const settingListSelector = (appState: AppState) => createSelector(
     }
 )(appState.entities);
 
-export const settingByIdSelector = (appState: AppState, id: string) => createSelector(
+export const settingByIdSelector = (appState: RootState, id: string) => createSelector(
     appStateOrm,
     dbStateSelector,
     session => {
@@ -30,7 +30,7 @@ export const settingByIdSelector = (appState: AppState, id: string) => createSel
     }
 )(appState.entities);
 
-export const settingByKeySelector = (appState: AppState, id: string, settingKey: string) => createSelector(
+export const settingByKeySelector = (appState: RootState, id: string, settingKey: string) => createSelector(
     appStateOrm,
     dbStateSelector,
     session => {
@@ -43,7 +43,7 @@ export const settingByKeySelector = (appState: AppState, id: string, settingKey:
     }
 )(appState.entities);
 
-export const hasSettings = (appState: AppState) => createSelector(
+export const hasSettings = (appState: RootState) => createSelector(
     appStateOrm,
     dbStateSelector,
     session => session.Setting.all().toRefArray().length

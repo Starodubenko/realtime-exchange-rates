@@ -1,6 +1,6 @@
 import React, {ChangeEvent, PureComponent} from 'react';
 import {connect} from "react-redux";
-import {AppState, Period} from "../../../common";
+import {RootState, Period} from "../../../common";
 import {updateSettingsAction} from "../../state/actions";
 import {Settings} from "../../model";
 
@@ -39,7 +39,7 @@ export class PeriodSelectorComponent extends PureComponent<Props, OwnState> {
     }
 }
 
-const mapStateToProps = (state: AppState, ownProps: InputProps): StateProps => {
+const mapStateToProps = (state: RootState, ownProps: InputProps): StateProps => {
     return {};
 };
 
@@ -47,4 +47,4 @@ const mapDispatchToProps: DispatchProps = {
     updateSettingsAction,
 };
 
-export const PeriodSelector = connect<StateProps, DispatchProps, InputProps, AppState>(mapStateToProps, mapDispatchToProps)(PeriodSelectorComponent);
+export const PeriodSelector = connect<StateProps, DispatchProps, InputProps, RootState>(mapStateToProps, mapDispatchToProps)(PeriodSelectorComponent);
