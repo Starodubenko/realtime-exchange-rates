@@ -14,9 +14,7 @@ interface OwnState {}
 
 export class RerSelect extends PureComponent<Props, OwnState> {
 
-    static defaultProps = {
-        selectedValue: {}
-    };
+    static defaultProps = {};
 
     change = (event: ChangeEvent<HTMLSelectElement>) => {
         this.props.onSelect(event.target.value);
@@ -28,11 +26,15 @@ export class RerSelect extends PureComponent<Props, OwnState> {
         ));
     };
 
+    getSelectedValue = () => {
+        return this.props.selectedValue ? this.props.selectedValue.id : 'default';
+    };
+
     render() {
         return (
             <div className={s.Root}>
-                <select onChange={this.change} value={this.props.selectedValue.id}>
-                    <option disabled selected> -- select an option -- </option>
+                <select onChange={this.change} value={this.getSelectedValue()}>
+                    <option disabled value={'default'}> -- select an option -- </option>
                     {this.renderList()}
                 </select>
             </div>

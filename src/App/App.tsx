@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {ActionFunctionAny} from "redux-actions";
 import {AppState} from "../modules/common";
-import {SettingList} from "../modules/settings/components";
 import {hasSettings} from "../modules/settings/state/selectors";
 import {appInitAction} from "./state";
+import {Route, Switch} from "react-router";
+import {MainPage} from "../modules/page/components/MainPage";
 
 import s from './App.module.scss';
-import {CurrencyPairSelector} from "../modules/currency/components/CurrencyPairSelector";
 
 
 interface InputProps {
@@ -30,17 +30,11 @@ export class AppComponent extends Component<Props, OwnState> {
 
     static defaultProps = {};
 
-    onPairChange = (primaryCurrencyId: string, secondaryPairId: string) => {
-        console.log(primaryCurrencyId + " : " + secondaryPairId);
-    };
-
-
     renderApp = () => {
         return this.props.hasSettings
-            ? <div>
-                <SettingList/>
-                <CurrencyPairSelector onPairChange={this.onPairChange}/>
-              </div>
+            ? <Switch>
+                <Route exact path="/" component={MainPage}/>
+              </Switch>
             : 'Settings are fetching...';
     };
 
@@ -52,9 +46,7 @@ export class AppComponent extends Component<Props, OwnState> {
         );
     }
 
-    componentDidMount()
-        :
-        void {
+    componentDidMount(): void {
         this.props.appInitAction();
     }
 }
