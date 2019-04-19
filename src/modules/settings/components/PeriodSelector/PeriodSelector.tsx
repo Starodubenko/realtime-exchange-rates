@@ -1,8 +1,9 @@
 import React, {ChangeEvent, PureComponent} from 'react';
 import {connect} from "react-redux";
-import {RootState, Period} from "../../../common";
-import {updateSettingsAction} from "../../state/actions";
+import {Period} from "../../../common";
 import {Settings} from "../../model";
+import {RootState} from "../../../store";
+import {updateSettingsAction} from "../../state";
 
 import s from './PeriodSelector.module.scss';
 

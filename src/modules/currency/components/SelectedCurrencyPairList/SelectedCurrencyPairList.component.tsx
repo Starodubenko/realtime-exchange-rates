@@ -1,6 +1,6 @@
 import React, {PureComponent} from "react";
 import {connect} from "react-redux";
-import {RootState} from "../../../common";
+import {RootState} from "../../../store";
 
 import s from "./SelectedCurrencyPairList.module.scss";
 

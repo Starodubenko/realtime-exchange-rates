@@ -1,6 +1,7 @@
-import {AppEntitiesState, createReduxOrmModelReducer, ReduxOrmModelReducer} from "../../common";
+import {createReduxOrmModelReducer, ReduxOrmModelReducer} from "../../common";
 import {SettingsCreateActionType, SettingsDeleteActionType, SettingsUpdateActionType} from "./actions";
 import {Settings} from "../model";
+import {AppEntitiesState} from "../../store";
 
 export interface ISettingsActionHandlers {
     [SettingsCreateActionType]: ReduxOrmModelReducer<Settings, AppEntitiesState>;

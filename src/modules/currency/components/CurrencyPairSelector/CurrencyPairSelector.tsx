@@ -1,11 +1,11 @@
 import React, {PureComponent} from 'react';
 import {connect} from "react-redux";
-import {RootState} from "../../../common";
+import {RerSelect, RerSelectItem} from "../../../common";
+import {RootState} from "../../../store";
+import {Currency} from "../../model";
+import {currencyListSelector} from "../../state";
 
 import s from './CurrencyPairSelector.module.scss';
-import {RerSelect, RerSelectItem} from "../../../common/components/rerSelect";
-import {Currency} from "../../model";
-import {currencyListSelector} from "../../state/selectors";
 
 
 interface InputProps {

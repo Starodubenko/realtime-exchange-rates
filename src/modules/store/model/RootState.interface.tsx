@@ -1,7 +1,7 @@
 import {RouterState} from "connected-react-router";
-import {AppEntitiesState} from "./AppEntitiesState.interface";
 import {ReduxCompatibleReducer} from "redux-actions";
-import {AppState} from "../app/state/AppState.interface";
+import {AppEntitiesState} from "./AppEntitiesState.interface";
+import {AppState} from "../../app";
 
 export interface RootState {
     router: RouterState,

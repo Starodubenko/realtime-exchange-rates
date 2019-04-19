@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {SettingList} from "../../../settings/components/SettingList";
-import {CurrencyPairSelector} from "../../../currency/components/CurrencyPairSelector";
-import {RootState} from "../../../common";
-import {CurrencyPairIdsDto} from "../../../currency/model";
+import {SettingList} from "../../../../settings";
+import {CurrencyPairSelector, CurrencyPairIdsDto} from "../../../../currency";
+import {RootState} from "../../../../store";
 
 import s from './MainPage.module.scss';
 

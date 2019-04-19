@@ -1,4 +1,5 @@
-import {AppEntitiesState, createReduxOrmModelReducer, ReduxOrmModelReducer} from "../../common";
+import {createReduxOrmModelReducer, ReduxOrmModelReducer} from "../../common";
+import {AppEntitiesState} from "../../store";
 import {
     CurrencyCreateActionType,
     CurrencyCreateListActionType,

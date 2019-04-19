@@ -1,7 +1,7 @@
 import React, {PureComponent} from "react";
 import {connect} from "react-redux";
-import {RootState} from "../../../common";
 import {PeriodSelector} from "../PeriodSelector";
+import {RootState} from "../../../store/model";
 
 import s from "./SettingList.module.scss";
 

@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {ActionFunctionAny} from "redux-actions";
-import {RootState} from "../../../common";
 import {hasSettings} from "../../../settings/state/selectors";
 import {appInitAction} from "../../state";
 import {Route, Switch} from "react-router";
-import {MainPage} from "../../../page/components/MainPage";
+import {MainPage} from "../pages/MainPage";
+import {RootState} from "../../../store";
 
 import s from './App.module.scss';
 
