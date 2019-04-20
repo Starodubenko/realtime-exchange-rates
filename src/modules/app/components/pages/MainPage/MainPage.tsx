@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {SettingList} from "../../../../settings";
-import {CurrencyPairSelector} from "../../../../currency";
+import {
+    addToCurrencyPairList, CurrencyPair,
+    CurrencyPairList,
+    currencyPairListSelector,
+    CurrencyPairSelector
+} from "../../../../currency";
 import {RootState} from "../../../../store";
+import {CurrencyPairIdsDto} from "../../../model";
 
 import s from './MainPage.module.scss';
-import {addToCurrencyPairList, currencyPairListSelector} from "../../../state";
-import {CurrencyPairIdsDto} from "../../../model";
-import {SelectedCurrencyPairList} from "../../SelectedCurrencyPairList";
 
 
 interface InputProps {
@@ -24,7 +27,7 @@ interface DispatchProps {
 type Props = StateProps & DispatchProps & InputProps
 
 interface OwnState {
-    selectedPairIds: CurrencyPairIdsDto
+    selectedPairIds: CurrencyPair
 }
 
 export class MainPageComponent extends Component<Props, OwnState> {
@@ -32,17 +35,24 @@ export class MainPageComponent extends Component<Props, OwnState> {
     static defaultProps = {};
 
     state = {
-        selectedPairIds: new CurrencyPairIdsDto(null, null)
+        selectedPairIds: null
     };
 
-    onPairChange = (primaryCurrencyId: string, secondaryPairId: string) => {
+    onPairChange = (currencyPair: CurrencyPair) => {
         this.setState({
-            selectedPairIds: new CurrencyPairIdsDto(primaryCurrencyId, secondaryPairId)
+            selectedPairIds: currencyPair
         })
     };
 
     addSelectedCurrencyPair = () => {
         this.props.addToCurrencyPairList(this.state.selectedPairIds);
+        this.setState({
+            selectedPairIds: null
+        })
+    };
+
+    isPairSelected = (): boolean => {
+        return !this.state.selectedPairIds;
     };
 
     render() {
@@ -51,8 +61,10 @@ export class MainPageComponent extends Component<Props, OwnState> {
                 <SettingList/>
                 <div>
                     <CurrencyPairSelector onPairChange={this.onPairChange}/>
-                    <button onClick={this.addSelectedCurrencyPair}>Add</button>
-                    <SelectedCurrencyPairList list={this.props.currencyPairList}/>
+                    <button disabled={this.isPairSelected()}
+                            onClick={this.addSelectedCurrencyPair}>Add
+                    </button>
+                    <CurrencyPairList list={this.props.currencyPairList}/>
                 </div>
             </div>
         );

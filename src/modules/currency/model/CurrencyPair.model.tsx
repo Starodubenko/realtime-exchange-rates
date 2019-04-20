@@ -12,8 +12,8 @@ export class CurrencyPair extends AbstractEntity {
     */
     secondaryCurrency: Currency;
 
-    constructor(id: string, primaryCurrency: Currency, secondaryCurrency: Currency) {
-        super(id);
+    constructor(primaryCurrency: Currency, secondaryCurrency: Currency) {
+        super(primaryCurrency.id + secondaryCurrency.id);
         this.primaryCurrency = primaryCurrency;
         this.secondaryCurrency = secondaryCurrency;
     }

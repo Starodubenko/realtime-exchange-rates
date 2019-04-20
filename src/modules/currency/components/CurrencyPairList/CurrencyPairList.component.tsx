@@ -1,9 +1,9 @@
 import React, {PureComponent} from "react";
 import {connect} from "react-redux";
 import {RootState} from "../../../store";
-import {CurrencyPair} from "../../../currency/model";
+import {CurrencyPair} from "../../model";
 
-import s from "./SelectedCurrencyPairList.module.scss";
+import s from "./CurrencyPairList.module.scss";
 
 interface InputProps {
     list: CurrencyPair[]
@@ -20,7 +20,7 @@ type Props = StateProps & DispatchProps & InputProps
 interface OwnState {
 }
 
-class SelectedCurrencyPairListComponent extends PureComponent<Props, OwnState> {
+class CurrencyPairListComponent extends PureComponent<Props, OwnState> {
 
     static defaultProps = {};
 
@@ -50,4 +50,4 @@ const mapStateToProps = (state: RootState, ownProps: InputProps): StateProps => 
 
 const mapDispatchToProps: DispatchProps = {};
 
-export const SelectedCurrencyPairList = connect<StateProps, DispatchProps, InputProps, RootState>(mapStateToProps, mapDispatchToProps)(SelectedCurrencyPairListComponent);
+export const CurrencyPairList = connect<StateProps, DispatchProps, InputProps, RootState>(mapStateToProps, mapDispatchToProps)(CurrencyPairListComponent);

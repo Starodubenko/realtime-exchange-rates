@@ -1,21 +1,22 @@
-import {createReduxOrmModelReducer, ReduxOrmModelReducer} from "../../common";
-import {AppEntitiesState} from "../../store";
 import {
     CurrencyCreateActionType,
     CurrencyCreateListActionType,
     CurrencyDeleteActionType,
     CurrencyUpdateActionType
-} from "./actions";
-import {Currency} from "../model";
+} from "./currency.actions";
+import {createReduxOrmModelReducer, ReduxOrmModelReducer} from "../../../common";
+import {Currency} from "../../model";
+import {AppEntitiesState} from "../../../store";
 
-export interface ICurrencyActionHandlers {
+
+interface ICurrencyActionHandlers {
     [CurrencyCreateActionType]: ReduxOrmModelReducer<Currency, AppEntitiesState>;
     [CurrencyCreateListActionType]: ReduxOrmModelReducer<Currency[], AppEntitiesState>;
     [CurrencyUpdateActionType]: ReduxOrmModelReducer<Currency, AppEntitiesState>;
     [CurrencyDeleteActionType]: ReduxOrmModelReducer<string, AppEntitiesState>;
 }
 
-export const settingsActionsMap: ICurrencyActionHandlers = {
+const currencyActionsMap: ICurrencyActionHandlers = {
     [CurrencyCreateActionType]: (action, model, session) => {
         model.create(action.payload);
     },
@@ -30,4 +31,4 @@ export const settingsActionsMap: ICurrencyActionHandlers = {
     }
 };
 
-export const currencyReducer = createReduxOrmModelReducer<ICurrencyActionHandlers, Currency, AppEntitiesState>(settingsActionsMap);
+export const currencyReducer = createReduxOrmModelReducer<ICurrencyActionHandlers, Currency, AppEntitiesState>(currencyActionsMap);

@@ -2,14 +2,14 @@ import React, {PureComponent} from 'react';
 import {connect} from "react-redux";
 import {RerSelect, RerSelectItem} from "../../../common";
 import {RootState} from "../../../store";
-import {Currency} from "../../model";
+import {Currency, CurrencyPair} from "../../model";
 import {currencyListSelector} from "../../state";
 
 import s from './CurrencyPairSelector.module.scss';
 
 
 interface InputProps {
-    onPairChange: (primaryCurrencyId: string, secondaryPairId: string) => void,
+    onPairChange: (currencyPair: CurrencyPair) => void,
 }
 
 interface StateProps {
@@ -41,7 +41,7 @@ export class CurrencyPairSelectorComponent extends PureComponent<Props, OwnState
         const leftSelectedId = id;
 
         this.setState({leftSelectedId, rightSelectedId});
-        this.props.onPairChange(leftSelectedId, rightSelectedId);
+        this.emitData(leftSelectedId, rightSelectedId);
     };
 
     onRightSelect = (id: string) => {
@@ -49,7 +49,7 @@ export class CurrencyPairSelectorComponent extends PureComponent<Props, OwnState
         const rightSelectedId = id;
 
         this.setState({leftSelectedId, rightSelectedId});
-        this.props.onPairChange(leftSelectedId, rightSelectedId);
+        this.emitData(leftSelectedId, rightSelectedId);
     };
 
     getLeftCurrencies = (): RerSelectItem[] => {
@@ -71,6 +71,15 @@ export class CurrencyPairSelectorComponent extends PureComponent<Props, OwnState
     }
 
     // ------------------------------------------ helpers
+
+    emitData = (leftSelectedId: string, rightSelectedId: string) => {
+        const leftCurrency = this.props.currencyList.find(currency => currency.id === leftSelectedId);
+        const rightCurrency = this.props.currencyList.find(currency => currency.id === rightSelectedId);
+
+        if (leftCurrency && rightCurrency) {
+            this.props.onPairChange(new CurrencyPair(leftCurrency, rightCurrency));
+        }
+    };
 
     getMappedCurrencies = (): RerSelectItem[] => {
         return this.props.currencyList.map(currency => new RerSelectItem(currency.id, currency.description));

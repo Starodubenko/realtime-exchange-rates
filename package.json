@@ -18,7 +18,7 @@
     "react-scripts": "^2.1.8",
     "redux-actions": "^2.6.4",
     "redux-form": "^8.1.0",
-    "redux-orm": "^0.12.2",
+    "redux-orm": "^0.13.2",
     "redux-starter-kit": "^0.4.3"
   },
   "scripts": {

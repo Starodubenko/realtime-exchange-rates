@@ -1,23 +1,28 @@
+import {createReduxOrmModelReducer, ReduxOrmModelReducer} from "../../../common/redux-orm";
+import {AppEntitiesState} from "../../../store";
 import {
     AppAddToCurrencyPairListActionType,
     AppRemoveFromCurrencyPairListActionType,
     AppUnwatchCurrencyPairActionType,
-    AppWatchCurrencyPairActionType,
-} from "./actions";
-import {createReduxOrmModelReducer, ReduxOrmModelReducer} from "../../common/redux-orm";
-import {AppEntitiesState} from "../../store/model";
-import {CurrencyPairIdsDto} from "../model";
+    AppWatchCurrencyPairActionType
+} from "./currencyPair.actions";
+import {CurrencyPair} from "../../model";
 
 
-export interface ICurrencyActionHandlers {
-    [AppAddToCurrencyPairListActionType]: ReduxOrmModelReducer<CurrencyPairIdsDto, AppEntitiesState>;
+interface ICurrencyPairActionHandlers {
+    [AppAddToCurrencyPairListActionType]: ReduxOrmModelReducer<CurrencyPair, AppEntitiesState>;
     [AppRemoveFromCurrencyPairListActionType]: ReduxOrmModelReducer<string, AppEntitiesState>;
     [AppWatchCurrencyPairActionType]: ReduxOrmModelReducer<string, AppEntitiesState>;
     [AppUnwatchCurrencyPairActionType]: ReduxOrmModelReducer<string, AppEntitiesState>;
 }
 
-export const settingsActionsMap: ICurrencyActionHandlers = {
+const currencyPairActionsMap: ICurrencyPairActionHandlers = {
     [AppAddToCurrencyPairListActionType]: (action, model, session) => {
+        const primaryCurrencyLink = session.Currency.withId(action.payload.primaryCurrency.id);
+        const secondaryCurrencyLink = session.Currency.withId(action.payload.secondaryCurrency.id);
+
+        action.payload.primaryCurrency = primaryCurrencyLink;
+        action.payload.secondaryCurrency = secondaryCurrencyLink;
         model.create(action.payload);
     },
     [AppRemoveFromCurrencyPairListActionType]: (action, model, session) => {
@@ -31,5 +36,4 @@ export const settingsActionsMap: ICurrencyActionHandlers = {
     }
 };
 
-export const selectedCurrencyPairReducer = createReduxOrmModelReducer<ICurrencyActionHandlers, CurrencyPairIdsDto, AppEntitiesState>(settingsActionsMap);
-
+export const currencyPairReducer = createReduxOrmModelReducer<ICurrencyPairActionHandlers, CurrencyPair, AppEntitiesState>(currencyPairActionsMap);

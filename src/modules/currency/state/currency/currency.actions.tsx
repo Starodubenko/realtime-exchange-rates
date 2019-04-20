@@ -1,5 +1,5 @@
 import {createAction} from "redux-actions";
-import {Currency} from "../model";
+import {Currency} from "../../model";
 
 export const CurrencyCreateActionType = 'Currency/create';
 export const CurrencyCreateListActionType = 'Currency/createList';
