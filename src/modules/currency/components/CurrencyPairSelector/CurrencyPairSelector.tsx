@@ -64,8 +64,8 @@ export class CurrencyPairSelectorComponent extends PureComponent<Props, OwnState
     render() {
         return (
             <div className={s.Root}>
-                <RerSelect values={this.getLeftCurrencies()} onSelect={this.onLeftSelect}/>
-                <RerSelect values={this.getRightCurrencies()} onSelect={this.onRightSelect}/>
+                <RerSelect selectedValue={this.state.leftSelectedId} values={this.getLeftCurrencies()} onSelect={this.onLeftSelect}/>
+                <RerSelect selectedValue={this.state.rightSelectedId} values={this.getRightCurrencies()} onSelect={this.onRightSelect}/>
             </div>
         );
     }

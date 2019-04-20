@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {ActionFunctionAny} from "redux-actions";
+import {Route, Switch} from "react-router";
 import {hasSettings} from "../../../settings/state/selectors";
 import {appInitAction} from "../../state";
-import {Route, Switch} from "react-router";
-import {MainPage} from "../pages/MainPage";
+import {MainPage} from "../pages";
 import {RootState} from "../../../store";
 
 import s from './App.module.scss';

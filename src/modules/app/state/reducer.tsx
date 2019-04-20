@@ -4,29 +4,32 @@ import {
     AppUnwatchCurrencyPairActionType,
     AppWatchCurrencyPairActionType,
 } from "./actions";
-import {ActionMeta, handleActions} from "redux-actions";
-import {CurrencyPairIdsDto} from "../../currency/model";
+import {createReduxOrmModelReducer, ReduxOrmModelReducer} from "../../common/redux-orm";
+import {AppEntitiesState} from "../../store/model";
+import {CurrencyPairIdsDto} from "../model";
 
 
-export const appActionsMap = {
-    [AppAddToCurrencyPairListActionType]: (state: any, action: ActionMeta<CurrencyPairIdsDto, any>) => {
-        debugger;
-        // model.create(action.payload);
+export interface ICurrencyActionHandlers {
+    [AppAddToCurrencyPairListActionType]: ReduxOrmModelReducer<CurrencyPairIdsDto, AppEntitiesState>;
+    [AppRemoveFromCurrencyPairListActionType]: ReduxOrmModelReducer<string, AppEntitiesState>;
+    [AppWatchCurrencyPairActionType]: ReduxOrmModelReducer<string, AppEntitiesState>;
+    [AppUnwatchCurrencyPairActionType]: ReduxOrmModelReducer<string, AppEntitiesState>;
+}
+
+export const settingsActionsMap: ICurrencyActionHandlers = {
+    [AppAddToCurrencyPairListActionType]: (action, model, session) => {
+        model.create(action.payload);
     },
-    [AppRemoveFromCurrencyPairListActionType]: (state, payload) => {
-        // model.withId(action.payload).delete();
-    },
-    [AppWatchCurrencyPairActionType]: (state, payload) => {
-        // const currentItem: CurrencyPairIdsDto = null;
-        // currentItem.isWatched = true;
-        debugger;
+    [AppRemoveFromCurrencyPairListActionType]: (action, model, session) => {
         // model.withId(action.payload).update(action.payload)
     },
-    [AppUnwatchCurrencyPairActionType]: (state, payload) => {
-        // const currentItem: CurrencyPairIdsDto = null;
-        // currentItem.isWatched = false;
+    [AppWatchCurrencyPairActionType]: (action, model, session) => {
+        // model.withId(action.payload).update(action.payload)
+    },
+    [AppUnwatchCurrencyPairActionType]: (action, model, session) => {
         // model.withId(action.payload).update(action.payload)
     }
 };
 
-export const appReducer = handleActions(appActionsMap, {});
+export const selectedCurrencyPairReducer = createReduxOrmModelReducer<ICurrencyActionHandlers, CurrencyPairIdsDto, AppEntitiesState>(settingsActionsMap);
+

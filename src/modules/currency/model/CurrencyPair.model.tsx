@@ -17,4 +17,8 @@ export class CurrencyPair extends AbstractEntity {
         this.primaryCurrency = primaryCurrency;
         this.secondaryCurrency = secondaryCurrency;
     }
+
+    toString() {
+        return this.primaryCurrency.name.toUpperCase() + this.secondaryCurrency.name.toUpperCase();
+    }
 }

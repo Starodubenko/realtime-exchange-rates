@@ -1,5 +1,5 @@
 import {AbstractEntity} from "../../common";
-import {CurrencyPair} from "./CurrencyPair.model";
+import {CurrencyPair} from "../../currency/model";
 
 export class Rate extends AbstractEntity {
     /**

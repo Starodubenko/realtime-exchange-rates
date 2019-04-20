@@ -4,14 +4,13 @@ import {combineReducers} from 'redux';
 import {routerMiddleware} from 'connected-react-router'
 import {createRouterReducer} from '../../boot/router';
 import {ormReducer} from "./store.orm";
-import {appReducer, appMiddleware} from "../app";
+import {appMiddleware} from "../app";
 import {RootState} from "./model";
 
 export function configureAppStore(history: History, preloadedState: any = {}) {
     const rootReducer = combineReducers<RootState>({
         ...createRouterReducer(history),
         entities: ormReducer,
-        app: appReducer
     });
 
     const store = configureStore({

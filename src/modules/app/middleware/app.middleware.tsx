@@ -1,8 +1,6 @@
-import {createSettingsAction} from "../../settings/state/actions";
-import {Settings} from "../../settings";
+import {Settings, createSettingsAction} from "../../settings";
 import {AppInitActionType} from "../state";
-import {createCurrencyListAction} from "../../currency/state/actions";
-import {Currency} from "../../currency/model";
+import {Currency, createCurrencyListAction} from "../../currency";
 
 export const appMiddleware  = state => next => action => {
     const {dispatch} = state;
