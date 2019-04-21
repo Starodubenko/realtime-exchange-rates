@@ -1,20 +1,20 @@
 import React, {PureComponent} from "react";
 import {connect} from "react-redux";
 import {RootState} from "../../../store";
-import {CurrencyPair} from "../../model";
-import {watchRateAction} from "../../state";
+import {Rate} from "../../model";
+import {unwatchRateAction} from "../../state";
 
-import s from "./CurrencyPairList.module.scss";
+import s from "./RateList.module.scss";
 
 interface InputProps {
-    list: CurrencyPair[]
+    list: Rate[]
 }
 
 interface StateProps {
 }
 
 interface DispatchProps {
-    watchRateAction: any;
+    unwatchRateAction: any;
 }
 
 type Props = StateProps & DispatchProps & InputProps
@@ -22,20 +22,21 @@ type Props = StateProps & DispatchProps & InputProps
 interface OwnState {
 }
 
-class CurrencyPairListComponent extends PureComponent<Props, OwnState> {
+class RateListComponent extends PureComponent<Props, OwnState> {
 
     static defaultProps = {};
 
-    watchRate = (id) => () => {
-        this.props.watchRateAction(id);
+    unwatchRate = (id) => () => {
+        this.props.unwatchRateAction(id);
     };
 
     renderList = () => {
         return this.props.list.map(row => {
             return (
                 <div key={row.id} className={s.Row}>
-                    <div>{row.toString()}</div>
-                    <button onClick={this.watchRate(row.id)}>Watch</button>
+                    <div>{row.pair.toString()}</div>
+                    <div>{row.value}</div>
+                    <button onClick={this.unwatchRate(row.id)}>Remove</button>
                 </div>
             )
         })
@@ -55,7 +56,7 @@ const mapStateToProps = (state: RootState, ownProps: InputProps): StateProps => 
 };
 
 const mapDispatchToProps: DispatchProps = {
-    watchRateAction
+    unwatchRateAction
 };
 
-export const CurrencyPairList = connect<StateProps, DispatchProps, InputProps, RootState>(mapStateToProps, mapDispatchToProps)(CurrencyPairListComponent);
+export const RateList = connect<StateProps, DispatchProps, InputProps, RootState>(mapStateToProps, mapDispatchToProps)(RateListComponent);

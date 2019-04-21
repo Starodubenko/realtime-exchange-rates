@@ -3,7 +3,7 @@ import {RootState} from "../../../store/model";
 import {appStateOrm, dbStateSelector} from "../../../store/store.orm";
 import {CurrencyPair} from "../../model";
 
-export const currencyPairListSelector = (appState: RootState) => createSelector(
+export const currencyPairListSelector = (appState: RootState): CurrencyPair[] => createSelector(
     appStateOrm,
     dbStateSelector,
     session => {
@@ -15,3 +15,7 @@ export const currencyPairListSelector = (appState: RootState) => createSelector(
         });
     }
 )(appState.entities);
+
+export const currencyPairByIdSelector = (appState: RootState, id: string): CurrencyPair =>
+    currencyPairListSelector(appState)
+        .find(pair => pair.id === id);

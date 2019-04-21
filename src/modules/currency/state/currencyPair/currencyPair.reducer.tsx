@@ -3,8 +3,6 @@ import {AppEntitiesState} from "../../../store";
 import {
     AppAddToCurrencyPairListActionType,
     AppRemoveFromCurrencyPairListActionType,
-    AppUnwatchCurrencyPairActionType,
-    AppWatchCurrencyPairActionType
 } from "./currencyPair.actions";
 import {CurrencyPair} from "../../model";
 
@@ -12,8 +10,6 @@ import {CurrencyPair} from "../../model";
 interface ICurrencyPairActionHandlers {
     [AppAddToCurrencyPairListActionType]: ReduxOrmModelReducer<CurrencyPair, AppEntitiesState>;
     [AppRemoveFromCurrencyPairListActionType]: ReduxOrmModelReducer<string, AppEntitiesState>;
-    [AppWatchCurrencyPairActionType]: ReduxOrmModelReducer<string, AppEntitiesState>;
-    [AppUnwatchCurrencyPairActionType]: ReduxOrmModelReducer<string, AppEntitiesState>;
 }
 
 const currencyPairActionsMap: ICurrencyPairActionHandlers = {
@@ -28,12 +24,6 @@ const currencyPairActionsMap: ICurrencyPairActionHandlers = {
     [AppRemoveFromCurrencyPairListActionType]: (action, model, session) => {
         // model.withId(action.payload).update(action.payload)
     },
-    [AppWatchCurrencyPairActionType]: (action, model, session) => {
-        // model.withId(action.payload).update(action.payload)
-    },
-    [AppUnwatchCurrencyPairActionType]: (action, model, session) => {
-        // model.withId(action.payload).update(action.payload)
-    }
 };
 
 export const currencyPairReducer = createReduxOrmModelReducer<ICurrencyPairActionHandlers, CurrencyPair, AppEntitiesState>(currencyPairActionsMap);

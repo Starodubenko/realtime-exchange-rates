@@ -5,18 +5,20 @@ import {
     addToCurrencyPairList, CurrencyPair,
     CurrencyPairList,
     currencyPairListSelector,
-    CurrencyPairSelector
+    CurrencyPairSelector, Rate, rateListSelector
 } from "../../../../currency";
 import {RootState} from "../../../../store";
 
 import s from './MainPage.module.scss';
+import {RateList} from "../../../../currency/components/RateList";
 
 
 interface InputProps {
 }
 
 interface StateProps {
-    currencyPairList: any
+    currencyPairList: CurrencyPair[];
+    rateList: Rate[];
 }
 
 interface DispatchProps {
@@ -64,6 +66,7 @@ export class MainPageComponent extends Component<Props, OwnState> {
                             onClick={this.addSelectedCurrencyPair}>Add
                     </button>
                     <CurrencyPairList list={this.props.currencyPairList}/>
+                    <RateList list={this.props.rateList}/>
                 </div>
             </div>
         );
@@ -72,7 +75,8 @@ export class MainPageComponent extends Component<Props, OwnState> {
 
 const mapStateToProps = (state: RootState, ownProps: InputProps): StateProps => {
     return {
-        currencyPairList: currencyPairListSelector(state)
+        currencyPairList: currencyPairListSelector(state),
+        rateList: rateListSelector(state)
     };
 };
 

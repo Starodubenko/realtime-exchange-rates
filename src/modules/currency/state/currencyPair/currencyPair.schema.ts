@@ -1,4 +1,4 @@
-import {attr, fk, Model, } from "redux-orm";
+import {attr, fk, Model} from "redux-orm";
 import {CurrencyPair} from "../../model";
 import {currencyPairReducer} from "./currencyPair.reducer";
 

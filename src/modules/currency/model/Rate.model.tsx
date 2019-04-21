@@ -1,5 +1,5 @@
 import {AbstractEntity} from "../../common";
-import {CurrencyPair} from "../../currency/model";
+import {CurrencyPair} from "./index";
 
 export class Rate extends AbstractEntity {
     /**
@@ -8,12 +8,12 @@ export class Rate extends AbstractEntity {
     pair: CurrencyPair;
 
     /**
-        Calculated rate text
+        Calculated rate
     */
     value: number;
 
-    constructor(id: string, pair: CurrencyPair, value: number) {
-        super(id);
+    constructor(pair: CurrencyPair, value: number = null) {
+        super('rate' + pair.id);
         this.pair = pair;
         this.value = value;
     }

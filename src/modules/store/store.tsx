@@ -6,6 +6,7 @@ import {createRouterReducer} from '../../boot/router';
 import {ormReducer} from "./store.orm";
 import {appMiddleware} from "../app";
 import {RootState} from "./model";
+import {currencyMiddleware} from "../currency";
 
 export function configureAppStore(history: History, preloadedState: any = {}) {
     const rootReducer = combineReducers<RootState>({
@@ -19,6 +20,7 @@ export function configureAppStore(history: History, preloadedState: any = {}) {
             ...getDefaultMiddleware(),
             routerMiddleware(history),
             appMiddleware,
+            currencyMiddleware,
         ],
         preloadedState,
         enhancers: []
