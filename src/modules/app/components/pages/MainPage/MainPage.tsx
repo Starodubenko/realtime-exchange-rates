@@ -8,7 +8,6 @@ import {
     CurrencyPairSelector
 } from "../../../../currency";
 import {RootState} from "../../../../store";
-import {CurrencyPairIdsDto} from "../../../model";
 
 import s from './MainPage.module.scss';
 
