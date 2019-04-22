@@ -36,7 +36,7 @@ class RateListComponent extends PureComponent<Props, OwnState> {
                 <div key={row.id} className={s.Row}>
                     <div>{row.pair.toString()}</div>
                     <div>{row.value}</div>
-                    <button onClick={this.unwatchRate(row.id)}>Remove</button>
+                    <button onClick={this.unwatchRate(row.pair.id)}>Remove</button>
                 </div>
             )
         })

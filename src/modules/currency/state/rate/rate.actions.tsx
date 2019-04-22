@@ -12,4 +12,4 @@ export const unwatchRateAction = createAction(UnwatchCurrencyPairActionType);
 
 export const addRateAction = createAction(AddRateActionType);
 export const updateRateAction = createAction(UpdateRateActionType);
-export const deleteRateAction = createAction(UnwatchCurrencyPairActionType);
+export const deleteRateAction = createAction(DeleteRateActionType);

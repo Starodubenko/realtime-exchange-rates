@@ -1,19 +1,19 @@
 import {createReduxOrmModelReducer, ReduxOrmModelReducer} from "../../../common/redux-orm";
 import {AppEntitiesState} from "../../../store";
 import {
-    AppAddToCurrencyPairListActionType,
-    AppRemoveFromCurrencyPairListActionType,
+    AddToCurrencyPairListActionType,
+    RemoveFromCurrencyPairListActionType,
 } from "./currencyPair.actions";
 import {CurrencyPair} from "../../model";
 
 
 interface ICurrencyPairActionHandlers {
-    [AppAddToCurrencyPairListActionType]: ReduxOrmModelReducer<CurrencyPair, AppEntitiesState>;
-    [AppRemoveFromCurrencyPairListActionType]: ReduxOrmModelReducer<string, AppEntitiesState>;
+    [AddToCurrencyPairListActionType]: ReduxOrmModelReducer<CurrencyPair, AppEntitiesState>;
+    [RemoveFromCurrencyPairListActionType]: ReduxOrmModelReducer<string, AppEntitiesState>;
 }
 
 const currencyPairActionsMap: ICurrencyPairActionHandlers = {
-    [AppAddToCurrencyPairListActionType]: (action, model, session) => {
+    [AddToCurrencyPairListActionType]: (action, model, session) => {
         const primaryCurrencyLink = session.Currency.withId(action.payload.primaryCurrency.id);
         const secondaryCurrencyLink = session.Currency.withId(action.payload.secondaryCurrency.id);
 
@@ -21,7 +21,7 @@ const currencyPairActionsMap: ICurrencyPairActionHandlers = {
         action.payload.secondaryCurrency = secondaryCurrencyLink;
         model.create(action.payload);
     },
-    [AppRemoveFromCurrencyPairListActionType]: (action, model, session) => {
+    [RemoveFromCurrencyPairListActionType]: (action, model, session) => {
         // model.withId(action.payload).update(action.payload)
     },
 };
