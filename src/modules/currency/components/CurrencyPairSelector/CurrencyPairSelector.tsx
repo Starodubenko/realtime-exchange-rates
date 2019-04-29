@@ -82,7 +82,10 @@ export class CurrencyPairSelectorComponent extends PureComponent<Props, OwnState
     };
 
     getMappedCurrencies = (): RerSelectItem[] => {
-        return this.props.currencyList.map(currency => new RerSelectItem(currency.id, currency.description));
+        return this.props.currencyList.map(currency => ({
+            id: currency.id,
+            text: currency.description,
+        }));
     };
 
     filterById = (id?: string): RerSelectItem[] => {

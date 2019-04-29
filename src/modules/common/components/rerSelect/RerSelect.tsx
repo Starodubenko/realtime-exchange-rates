@@ -1,8 +1,7 @@
-import React, {ChangeEvent, PureComponent} from 'react';
+import React, {ChangeEvent, useCallback, useMemo} from 'react';
 import {RerSelectItem} from "./RerSelectItem.model";
 
 import s from './RerSelect.module.scss';
-
 
 type Props = {
     selectedValue?: RerSelectItem;
@@ -10,34 +9,27 @@ type Props = {
     onSelect: (id: string) => void;
 }
 
-interface OwnState {}
+export const RerSelect = (props: Props) => {
+    const selectedValue = useMemo(() => {
+        return props.selectedValue ? props.selectedValue.id : 'default';
+    }, [props.selectedValue]);
 
-export class RerSelect extends PureComponent<Props, OwnState> {
-
-    static defaultProps = {};
-
-    change = (event: ChangeEvent<HTMLSelectElement>) => {
-        this.props.onSelect(event.target.value);
-    };
-
-    renderList = () => {
-        return this.props.values.map(value => (
+    const options = useMemo(() => {
+        return props.values.map(value => (
             <option key={value.id} value={value.id}>{value.text}</option>
         ));
-    };
+    }, [props.values]);
 
-    getSelectedValue = () => {
-        return this.props.selectedValue ? this.props.selectedValue.id : 'default';
-    };
+    const onChange = useCallback((event: ChangeEvent<HTMLSelectElement>) => {
+        props.onSelect(event.target.value);
+    }, []);
 
-    render() {
-        return (
-            <div className={s.Root}>
-                <select onChange={this.change} value={this.getSelectedValue()}>
-                    <option disabled value={'default'}> -- select an option -- </option>
-                    {this.renderList()}
-                </select>
-            </div>
-        );
-    }
-}
+    return (
+        <div className={s.Root}>
+            <select onChange={onChange} value={selectedValue}>
+                <option disabled value={'default'}> -- select an option -- </option>
+                {options}
+            </select>
+        </div>
+    );
+};
