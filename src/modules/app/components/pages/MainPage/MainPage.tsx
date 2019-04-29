@@ -65,7 +65,7 @@ export class MainPageComponent extends Component<Props, OwnState> {
                     <button disabled={this.isPairSelected()}
                             onClick={this.addSelectedCurrencyPair}>Add
                     </button>
-                    <CurrencyPairList list={this.props.currencyPairList}/>
+                    <CurrencyPairList items={this.props.currencyPairList}/>
                     <RateList list={this.props.rateList}/>
                 </div>
             </div>
