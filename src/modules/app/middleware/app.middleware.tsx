@@ -1,6 +1,6 @@
-import {Settings, createSettingsAction} from "../../settings";
+import {createSettingsAction} from "../../settings";
 import {AppInitActionType} from "../state";
-import {Currency, createCurrencyListAction} from "../../currency";
+import {createCurrencyListAction, Currency} from "../../currency";
 
 export const appMiddleware  = state => next => action => {
     const {dispatch} = state;
@@ -16,7 +16,10 @@ export const appMiddleware  = state => next => action => {
                 new Currency('5', 'jpy', 'Japanese Yen'),
                 new Currency('6', 'cad', 'Canadian Dollar'),
             ]));
-            dispatch(createSettingsAction(new Settings('mySettings', 1000)));
+            dispatch(createSettingsAction({
+                id: 'mySettings',
+                period: 1000,
+            }));
         }, 0);
     }
 
