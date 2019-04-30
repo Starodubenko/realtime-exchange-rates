@@ -6,16 +6,18 @@ import {unwatchRateAction} from "../../state";
 
 import s from "./RateList.module.scss";
 
-
 interface InputProps {
     list: Rate[]
+}
+
+interface StateProps {
 }
 
 interface DispatchProps {
     unwatchRateAction: any;
 }
 
-type Props = DispatchProps & InputProps
+type Props = StateProps & DispatchProps & InputProps
 
 const RateListComponent = (props: Props) => {
 
@@ -46,4 +48,4 @@ const mapDispatchToProps: DispatchProps = {
     unwatchRateAction
 };
 
-export const RateList = connect<any, DispatchProps, InputProps, RootState>(null, mapDispatchToProps)(RateListComponent);
+export const RateList = connect<StateProps, DispatchProps, InputProps, RootState>(null, mapDispatchToProps)(RateListComponent);
