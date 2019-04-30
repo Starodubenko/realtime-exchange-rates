@@ -29,7 +29,7 @@ const AppComponent = (props: Props) => {
 
     useEffect(() => {
         props.appInitAction();
-    });
+    }, []);
 
     return (
         <div className={s.Root}>
