@@ -39,14 +39,22 @@ export const MainPageComponent = (props: Props) => {
 
     return (
         <div className={s.Root}>
-            <SettingList/>
-            <div>
+            <div className={s.Settings}>
+                <SettingList/>
+            </div>
+            <div className={s.Lists}>
+                <div className={s.CurrencyPairList}>
+                    <CurrencyPairList items={props.currencyPairList}/>
+                </div>
+                <div className={s.RateLists}>
+                    <RateList list={props.rateList}/>
+                </div>
+            </div>
+            <div className={s.CurrencyPairSelector}>
                 <CurrencyPairSelector onPairChange={onPairChange}/>
                 <button disabled={isPairSelected}
                         onClick={addSelectedCurrencyPair}>Add
                 </button>
-                <CurrencyPairList items={props.currencyPairList}/>
-                <RateList list={props.rateList}/>
             </div>
         </div>
     )

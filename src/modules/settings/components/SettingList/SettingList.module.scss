@@ -5,5 +5,7 @@
 
 .Row {
   display: flex;
+  justify-content: space-between;
   flex-grow: 1;
+  height: 40px;
 }

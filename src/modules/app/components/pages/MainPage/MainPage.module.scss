@@ -1,3 +1,31 @@
 .Root {
   display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
+
+.Settings {
+  height: 25px;
+}
+
+.Lists {
+  display: flex;
+  height: 400px;
+  overflow: auto;
+}
+
+.CurrencyPairList {
+  display: flex;
+  width: 50%;
+}
+
+.RateLists {
+  display: flex;
+  width: 50%;
+}
+
+.CurrencyPairSelector {
+  display: flex;
+}
+
+
