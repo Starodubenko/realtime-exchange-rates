@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {connect} from "react-redux";
 import {ActionFunctionAny} from "redux-actions";
 import {Route, Switch} from "react-router";
@@ -10,9 +10,6 @@ import {RootState} from "../../../store";
 import s from './App.module.scss';
 
 
-interface InputProps {
-}
-
 interface StateProps {
     hasSettings: boolean;
 }
@@ -21,45 +18,33 @@ interface DispatchProps {
     appInitAction: ActionFunctionAny<any>;
 }
 
-type Props = StateProps & DispatchProps & InputProps
+type Props = StateProps & DispatchProps
 
-interface OwnState {
-}
+const AppComponent = (props: Props) => {
+    const renderApp = useMemo(() => props.hasSettings
+        ? <Switch>
+            <Route exact path="/" component={MainPage}/>
+        </Switch>
+        : 'Settings are fetching...', [props.hasSettings]);
 
-export class AppComponent extends Component<Props, OwnState> {
+    useEffect(() => {
+        props.appInitAction();
+    });
 
-    static defaultProps = {};
-
-    renderApp = () => {
-        return this.props.hasSettings
-            ? <Switch>
-                <Route exact path="/" component={MainPage}/>
-              </Switch>
-            : 'Settings are fetching...';
-    };
-
-    render() {
-        return (
-            <div className={s.Root}>
-                {this.renderApp()}
-            </div>
-        );
-    }
-
-    componentDidMount(): void {
-        this.props.appInitAction();
-    }
-}
-
-const mapStateToProps = (state: RootState, ownProps: InputProps): StateProps => {
-    return {
-        hasSettings: hasSettings(state)
-    };
+    return (
+        <div className={s.Root}>
+            {renderApp}
+        </div>
+    )
 };
+
+const mapStateToProps = (state: RootState): StateProps => ({
+    hasSettings: hasSettings(state)
+});
 
 const mapDispatchToProps: DispatchProps = {
     appInitAction,
 };
 
-export const App = connect<StateProps, DispatchProps, InputProps, RootState>(mapStateToProps, mapDispatchToProps)(AppComponent);
+export const App = connect<StateProps, DispatchProps, any, RootState>(mapStateToProps, mapDispatchToProps)(AppComponent);
 
