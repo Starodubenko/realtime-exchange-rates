@@ -1,25 +1,19 @@
 import React, {ChangeEvent, useCallback} from 'react';
 import {connect} from "react-redux";
+import {Action, ActionFunction1} from "redux-actions";
 import {Period} from "../../../common";
 import {Settings} from "../../model";
 import {RootState} from "../../../store";
 import {updateSettingsAction} from "../../state";
 
 import s from './PeriodSelector.module.scss';
-import {Action, ActionFunction1} from "redux-actions";
 
-
-interface InputProps {}
-
-interface StateProps {}
 
 interface DispatchProps {
     updateSettingsAction: ActionFunction1<Settings, Action<Settings>>;
 }
 
-type Props = StateProps & DispatchProps & InputProps
-
-interface OwnState {}
+type Props = DispatchProps
 
 const PeriodSelectorComponent = (props: Props) => {
     const change = useCallback(
@@ -42,12 +36,8 @@ const PeriodSelectorComponent = (props: Props) => {
     );
 };
 
-const mapStateToProps = (state: RootState, ownProps: InputProps): StateProps => {
-    return {};
-};
-
 const mapDispatchToProps: DispatchProps = {
     updateSettingsAction,
 };
 
-export const PeriodSelector = connect<StateProps, DispatchProps, InputProps, RootState>(mapStateToProps, mapDispatchToProps)(PeriodSelectorComponent);
+export const PeriodSelector = connect<any, DispatchProps, any, RootState>(null, mapDispatchToProps)(PeriodSelectorComponent);

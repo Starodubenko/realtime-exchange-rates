@@ -16,9 +16,7 @@ interface StateProps {
     currencyItems: Currency[],
 }
 
-interface DispatchProps {}
-
-type Props = StateProps & DispatchProps & InputProps;
+type Props = StateProps & InputProps;
 
 const getMappedCurrencies = (currencyItems: Currency[]): RerSelectItem[] => {
     return currencyItems.map(currency => ({
@@ -64,8 +62,8 @@ const CurrencyPairSelectorComponent = (props: Props) => {
     );
 };
 
-const mapStateToProps = (state: RootState, inputProps: InputProps): StateProps => ({
+const mapStateToProps = (state: RootState): StateProps => ({
     currencyItems: currencyListSelector(state),
 });
 
-export const CurrencyPairSelector = connect<StateProps, DispatchProps, InputProps, RootState>(mapStateToProps)(CurrencyPairSelectorComponent);
+export const CurrencyPairSelector = connect<StateProps, any, InputProps, RootState>(mapStateToProps)(CurrencyPairSelectorComponent);

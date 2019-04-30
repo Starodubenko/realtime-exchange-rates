@@ -10,9 +10,6 @@ interface InputProps {
     items: CurrencyPair[]
 }
 
-interface StateProps {
-}
-
 interface DispatchProps {
     watchRateAction: any;
 }
@@ -46,4 +43,4 @@ const mapDispatchToProps: DispatchProps = {
     watchRateAction
 };
 
-export const CurrencyPairList = connect<StateProps, DispatchProps, InputProps, RootState>(null, mapDispatchToProps)(CurrencyPairListComponent);
+export const CurrencyPairList = connect<any, DispatchProps, InputProps, RootState>(null, mapDispatchToProps)(CurrencyPairListComponent);
