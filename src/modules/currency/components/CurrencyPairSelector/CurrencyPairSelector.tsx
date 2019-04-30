@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {connect} from "react-redux";
 import {RerSelect, RerSelectItem} from "../../../common";
 import {RootState} from "../../../store";
@@ -13,94 +13,59 @@ interface InputProps {
 }
 
 interface StateProps {
-    currencyList: Currency[],
+    currencyItems: Currency[],
 }
 
 interface DispatchProps {}
 
-type Props = StateProps & DispatchProps & InputProps
+type Props = StateProps & DispatchProps & InputProps;
 
-interface OwnState {
-    leftSelectedId?: string;
-    rightSelectedId?: string;
-}
-
-export class CurrencyPairSelectorComponent extends PureComponent<Props, OwnState> {
-
-    static defaultProps = {
-        currencyList: []
-    };
-
-    state = {
-        leftSelectedId: null,
-        rightSelectedId: null,
-    };
-
-    onLeftSelect = (id: string) => {
-        const {rightSelectedId} = this.state;
-        const leftSelectedId = id;
-
-        this.setState({leftSelectedId, rightSelectedId});
-        this.emitData(leftSelectedId, rightSelectedId);
-    };
-
-    onRightSelect = (id: string) => {
-        const {leftSelectedId} = this.state;
-        const rightSelectedId = id;
-
-        this.setState({leftSelectedId, rightSelectedId});
-        this.emitData(leftSelectedId, rightSelectedId);
-    };
-
-    getLeftCurrencies = (): RerSelectItem[] => {
-        return this.filterById(this.state.rightSelectedId);
-    };
-
-
-    getRightCurrencies = (): RerSelectItem[] => {
-        return this.filterById(this.state.leftSelectedId);
-    };
-
-    render() {
-        return (
-            <div className={s.Root}>
-                <RerSelect selectedValue={this.state.leftSelectedId} values={this.getLeftCurrencies()} onSelect={this.onLeftSelect}/>
-                <RerSelect selectedValue={this.state.rightSelectedId} values={this.getRightCurrencies()} onSelect={this.onRightSelect}/>
-            </div>
-        );
-    }
-
-    // ------------------------------------------ helpers
-
-    emitData = (leftSelectedId: string, rightSelectedId: string) => {
-        const leftCurrency = this.props.currencyList.find(currency => currency.id === leftSelectedId);
-        const rightCurrency = this.props.currencyList.find(currency => currency.id === rightSelectedId);
-
-        if (leftCurrency && rightCurrency) {
-            this.props.onPairChange(new CurrencyPair(leftCurrency, rightCurrency));
-        }
-    };
-
-    getMappedCurrencies = (): RerSelectItem[] => {
-        return this.props.currencyList.map(currency => ({
-            id: currency.id,
-            text: currency.description,
-        }));
-    };
-
-    filterById = (id?: string): RerSelectItem[] => {
-        return id
-            ? this.getMappedCurrencies().filter(currency => currency.id !== id)
-            : this.getMappedCurrencies();
-    };
-}
-
-const mapStateToProps = (state: RootState, ownProps: InputProps): StateProps => {
-    return {
-        currencyList: currencyListSelector(state),
-    };
+const getMappedCurrencies = (currencyItems: Currency[]): RerSelectItem[] => {
+    return currencyItems.map(currency => ({
+        id: currency.id,
+        text: currency.description,
+    }));
 };
 
-const mapDispatchToProps: DispatchProps = {};
+const filteredByIdCurrencies = (currencyItems: Currency[], id?: string): RerSelectItem[] => {
+    return id
+        ? getMappedCurrencies(currencyItems).filter(currency => currency.id !== id)
+        : getMappedCurrencies(currencyItems);
+};
 
-export const CurrencyPairSelector = connect<StateProps, DispatchProps, InputProps, RootState>(mapStateToProps, mapDispatchToProps)(CurrencyPairSelectorComponent);
+const CurrencyPairSelectorComponent = (props: Props) => {
+    const [leftId, setLeftId] = useState(null);
+    const [rightId, setRightId] = useState(null);
+    const leftCurrencies = useMemo((): RerSelectItem[] => filteredByIdCurrencies(props.currencyItems, rightId), [props.currencyItems, rightId]);
+    const rightCurrencies = useMemo((): RerSelectItem[] => filteredByIdCurrencies(props.currencyItems, leftId), [props.currencyItems, leftId]);
+
+    const onLeftSelect = useCallback((id: string) => {
+        setLeftId(id);
+    }, []);
+
+    const onRightSelect = useCallback((id: string) => {
+        setRightId(id);
+    }, []);
+
+    useEffect(() => {
+        const leftCurrency = props.currencyItems.find(currency => currency.id === leftId);
+        const rightCurrency = props.currencyItems.find(currency => currency.id === rightId);
+
+        if (leftCurrency && rightCurrency) {
+            props.onPairChange(new CurrencyPair(leftCurrency, rightCurrency));
+        }
+    }, [leftId, rightId]);
+
+    return (
+        <div className={s.Root}>
+            <RerSelect selectedValue={leftId} values={leftCurrencies} onSelect={onLeftSelect}/>
+            <RerSelect selectedValue={rightId} values={rightCurrencies} onSelect={onRightSelect}/>
+        </div>
+    );
+};
+
+const mapStateToProps = (state: RootState, inputProps: InputProps): StateProps => ({
+    currencyItems: currencyListSelector(state),
+});
+
+export const CurrencyPairSelector = connect<StateProps, DispatchProps, InputProps, RootState>(mapStateToProps)(CurrencyPairSelectorComponent);
