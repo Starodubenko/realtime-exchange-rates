@@ -1,7 +1,9 @@
 import io from "socket.io-client";
 import {
-    addRateAction, AddToCurrencyPairListActionType,
-    currencyPairByIdSelector, deleteRateAction,
+    addRateAction,
+    AddToCurrencyPairListActionType,
+    currencyPairByIdSelector,
+    deleteRateAction,
     rateByIdSelector,
     UnwatchCurrencyPairActionType,
     updateRateAction,
@@ -9,11 +11,12 @@ import {
 } from "../state";
 import {Action} from "redux-actions";
 import {Rate} from "../model";
+import {getTimeoutSetting} from "../../settings/state/selectors";
 
 const sockets = new Map<string, SocketIOClient.Socket>();
 
 export const currencyMiddleware  = state => next => (action: Action<any>) => {
-    const {dispatch} = state;
+    const {dispatch, getState} = state;
     const {type} = action;
 
     // todo Сделать так, чтобы нельзя было добовлять одинаковые пары в список
@@ -21,13 +24,21 @@ export const currencyMiddleware  = state => next => (action: Action<any>) => {
         const currencyPair = action.payload;
         const connection = io('prices-server-mock.spotware.com:8084');
 
-        connection.on('connect', (data) => {
+        connection.on('connect', () => {
+            let updateTimeout: NodeJS.Timeout = null;
+
             connection.on('price-change', (data) => {
-                // todo Сделать утильную функцмю, чтобы генерировать айдишник новому Rate
-                const newRateId = 'rate' + currencyPair.id;
-                const rateToUpdate = rateByIdSelector(state.getState(), newRateId);
-                rateToUpdate.value = data.price;
-                dispatch(updateRateAction(rateToUpdate));
+                const timeoutSetting = getTimeoutSetting(getState());
+                if (!updateTimeout) {
+                    updateTimeout = setTimeout(() => {
+                        // todo Сделать утильную функцмю, чтобы генерировать айдишник новому Rate
+                        const newRateId = 'rate' + currencyPair.id;
+                        const rateToUpdate = rateByIdSelector(state.getState(), newRateId);
+                        rateToUpdate.value = data.price;
+                        dispatch(updateRateAction(rateToUpdate));
+                        updateTimeout = null;
+                    }, timeoutSetting);
+                }
             });
 
             connection.on('unsubscribe-res', (data) => {

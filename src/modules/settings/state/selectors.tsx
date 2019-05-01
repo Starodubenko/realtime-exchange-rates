@@ -1,49 +1,26 @@
 import {createSelector} from "redux-orm";
 import {appStateOrm, dbStateSelector} from "../../store/store.orm";
 import {RootState} from "../../store";
+import {Setting, Settings} from "../model";
+import {Period} from "../../common";
 
 export const settingListSelector = (appState: RootState) => createSelector(
     appStateOrm,
     dbStateSelector,
     session => {
         // @ts-ignore
-        return session.Book.all().map(setting => {
-            const obj = setting.ref;
-
-            return Object.assign({}, obj, {
-                authors: setting.authors.toRefArray().map(author => author.name),
-            });
-        });
+        return session.Setting.all().toRefArray();
     }
 )(appState.entities);
 
-export const settingByIdSelector = (appState: RootState, id: string) => createSelector(
-    appStateOrm,
-    dbStateSelector,
-    session => {
-        const model = session.Book.withId(id);
-        const obj = model.ref;
+export const settingByIdSelector = (appState: RootState, id: string): Settings => settingListSelector(appState).find(item => item.id === id);
 
-        return Object.assign({}, obj, {
-            authors: model.authors.toRefArray().map(author => author.name),
-        });
-    }
-)(appState.entities);
+export const  settingByKeySelector = <K extends keyof Settings>(appState: RootState, id: string, settingKey: string): Settings[K] => settingByIdSelector(appState, id)[settingKey];
 
-export const settingByKeySelector = (appState: RootState, id: string, settingKey: string) => createSelector(
-    appStateOrm,
-    dbStateSelector,
-    session => {
-        const model = session.Book.withId(id);
-        const obj = model.ref;
+// todo убрать хардкодный айдишник настроек
+export const getTimeoutSetting = (appState: RootState, id: string = 'mySettings'): Period => settingByKeySelector<Setting.Period>(appState, id, Setting.Period);
 
-        return Object.assign({}, obj, {
-            authors: model.authors.toRefArray().map(author => author.name),
-        });
-    }
-)(appState.entities);
-
-export const hasSettings = (appState: RootState) => createSelector(
+export const hasSettings = (appState: RootState): boolean => createSelector(
     appStateOrm,
     dbStateSelector,
     session => session.Setting.all().toRefArray().length
