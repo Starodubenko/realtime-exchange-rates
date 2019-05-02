@@ -1,5 +1,7 @@
 import React, {useCallback, useMemo} from "react";
 import {connect} from "react-redux";
+import Paper from "@material-ui/core/Paper";
+import {Button} from "@material-ui/core";
 import {RootState} from "../../../store";
 import {Rate} from "../../model";
 import {unwatchRateAction} from "../../state";
@@ -28,11 +30,15 @@ const RateListComponent = (props: Props) => {
     const renderList = useMemo(() => {
         return props.list.map(row => {
             return (
-                <div key={row.id} className={s.Row}>
+                <Paper key={row.id} className={s.Row}>
                     <div>{row.pair.toString()}</div>
                     <div>{row.value}</div>
-                    <button onClick={unwatchRate(row.pair.id)}>Remove</button>
-                </div>
+                    <Button variant="contained"
+                            color="secondary"
+                            onClick={unwatchRate(row.pair.id)}>
+                        Remove
+                    </Button>
+                </Paper>
             )
         })
     }, [props.list]);
