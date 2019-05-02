@@ -2,10 +2,12 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  margin: 0 10px;
 }
 
 .Settings {
-  height: 25px;
+  margin: 10px 0;
+  width: 300px;
 }
 
 .Lists {
@@ -26,6 +28,10 @@
 
 .CurrencyPairSelector {
   display: flex;
+}
+
+.ListDivider {
+  width: 10px;
 }
 
 

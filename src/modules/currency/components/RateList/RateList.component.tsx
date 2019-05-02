@@ -16,6 +16,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
+    // todo Убрать any и поставить нормальный тип
     unwatchRateAction: any;
 }
 
@@ -27,21 +28,21 @@ const RateListComponent = (props: Props) => {
         props.unwatchRateAction(id);
     }, []);
 
-    const renderList = useMemo(() => {
-        return props.list.map(row => {
-            return (
-                <Paper key={row.id} className={s.Row}>
-                    <div>{row.pair.toString()}</div>
-                    <div>{row.value}</div>
-                    <Button variant="contained"
-                            color="secondary"
-                            onClick={unwatchRate(row.pair.id)}>
-                        Remove
-                    </Button>
-                </Paper>
-            )
-        })
-    }, [props.list]);
+    const renderList = useMemo(() => props.list.map(row => {
+        const rateValue = row.value && row.value.toFixed(2);
+
+        return (
+            <Paper key={row.id} className={s.Row}>
+                <div className={s.PairString}>{row.pair.toString()}</div>
+                <div>{rateValue}</div>
+                <Button variant="contained"
+                        color="secondary"
+                        onClick={unwatchRate(row.pair.id)}>
+                    Remove
+                </Button>
+            </Paper>
+        )
+    }), [props.list]);
 
     return (
         <div className={s.Root}>

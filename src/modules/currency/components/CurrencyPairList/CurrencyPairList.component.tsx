@@ -30,7 +30,7 @@ const CurrencyPairListComponent = memo((props: Props) => {
         return props.items.map(row => {
             return (
                 <Paper key={row.id} className={s.Row}>
-                    <div>{row.toString()}</div>
+                    <div className={s.PairString}>{row.toString()}</div>
                     <Button variant="contained"
                             color="primary"
                             onClick={watchRate(row.id)}>

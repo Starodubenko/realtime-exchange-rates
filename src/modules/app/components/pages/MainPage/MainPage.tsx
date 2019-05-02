@@ -47,6 +47,7 @@ export const MainPageComponent = (props: Props) => {
                 <div className={s.CurrencyPairList}>
                     <CurrencyPairList items={props.currencyPairList}/>
                 </div>
+                <div className={s.ListDivider} />
                 <div className={s.RateLists}>
                     <RateList list={props.rateList}/>
                 </div>
