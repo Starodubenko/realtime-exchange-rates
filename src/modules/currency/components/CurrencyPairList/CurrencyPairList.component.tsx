@@ -2,6 +2,7 @@ import React, {memo, useCallback, useMemo} from "react";
 import {connect} from "react-redux";
 import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/Button";
+import {Action, ActionFunction1} from "redux-actions";
 import {RootState} from "../../../store";
 import {CurrencyPair} from "../../model";
 import {watchRateAction} from "../../state";
@@ -16,7 +17,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    watchRateAction: any;
+    watchRateAction: ActionFunction1<string, Action<string>>;
 }
 
 type Props = DispatchProps & InputProps

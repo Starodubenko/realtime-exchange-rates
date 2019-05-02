@@ -1,6 +1,7 @@
 import React, {useCallback, useMemo, useState} from 'react';
 import {connect} from "react-redux";
 import Button from '@material-ui/core/Button';
+import {Action, ActionFunction1} from "redux-actions";
 import {SettingList} from "../../../../settings";
 import {
     addToCurrencyPairList,
@@ -9,10 +10,10 @@ import {
     currencyPairListSelector,
     CurrencyPairSelector,
     Rate,
-    rateListSelector
+    rateListSelector,
+    RateList
 } from "../../../../currency";
 import {RootState} from "../../../../store";
-import {RateList} from "../../../../currency/components/RateList";
 
 import s from './MainPage.module.scss';
 
@@ -22,7 +23,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    addToCurrencyPairList: any;
+    addToCurrencyPairList: ActionFunction1<CurrencyPair, Action<CurrencyPair>>;
 }
 
 type Props = StateProps & DispatchProps

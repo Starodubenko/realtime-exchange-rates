@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo} from 'react';
 import {connect} from "react-redux";
-import {ActionFunctionAny} from "redux-actions";
+import {ActionFunction0} from "redux-actions";
 import {Route, Switch} from "react-router";
 import {hasSettings} from "../../../settings/state/selectors";
 import {appInitAction} from "../../state";
@@ -15,7 +15,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    appInitAction: ActionFunctionAny<any>;
+    appInitAction: ActionFunction0<any>;
 }
 
 type Props = StateProps & DispatchProps

@@ -2,6 +2,7 @@ import React, {useCallback, useMemo} from "react";
 import {connect} from "react-redux";
 import Paper from "@material-ui/core/Paper";
 import {Button} from "@material-ui/core";
+import {Action, ActionFunction1} from "redux-actions";
 import {RootState} from "../../../store";
 import {Rate} from "../../model";
 import {unwatchRateAction} from "../../state";
@@ -16,8 +17,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    // todo Убрать any и поставить нормальный тип
-    unwatchRateAction: any;
+    unwatchRateAction: ActionFunction1<string, Action<string>>;
 }
 
 type Props = StateProps & DispatchProps & InputProps
