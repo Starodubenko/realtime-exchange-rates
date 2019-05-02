@@ -1,22 +1,24 @@
 import React, {ChangeEvent, useCallback, useMemo} from 'react';
 import {RerSelectItem} from "./RerSelectItem.model";
+import MenuItem from "@material-ui/core/MenuItem";
+import InputLabel from "@material-ui/core/es/InputLabel";
+import Select from "@material-ui/core/es/Select";
 
 import s from './RerSelect.module.scss';
 
 type Props = {
-    selectedValue?: RerSelectItem;
+    selectedValue?: string;
     values: RerSelectItem[];
     onSelect: (id: string) => void;
+    label?: string;
 }
 
 export const RerSelect = (props: Props) => {
-    const selectedValue = useMemo(() => {
-        return props.selectedValue ? props.selectedValue.id : 'default';
-    }, [props.selectedValue]);
+    const selectedValue = props.selectedValue ? props.selectedValue : '';
 
     const options = useMemo(() => {
         return props.values.map(value => (
-            <option key={value.id} value={value.id}>{value.text}</option>
+            <MenuItem key={value.id} value={value.id}>{value.text}</MenuItem>
         ));
     }, [props.values]);
 
@@ -26,10 +28,13 @@ export const RerSelect = (props: Props) => {
 
     return (
         <div className={s.Root}>
-            <select onChange={onChange} value={selectedValue}>
-                <option disabled value={'default'}> -- select an option -- </option>
+            <InputLabel>{props.label}</InputLabel>
+            <Select
+                value={selectedValue}
+                onChange={onChange}
+            >
                 {options}
-            </select>
+            </Select>
         </div>
     );
 };

@@ -1,5 +1,6 @@
 import React, {useCallback, useMemo, useState} from 'react';
 import {connect} from "react-redux";
+import Button from '@material-ui/core/Button';
 import {SettingList} from "../../../../settings";
 import {
     addToCurrencyPairList,
@@ -52,9 +53,12 @@ export const MainPageComponent = (props: Props) => {
             </div>
             <div className={s.CurrencyPairSelector}>
                 <CurrencyPairSelector onPairChange={onPairChange}/>
-                <button disabled={isPairSelected}
-                        onClick={addSelectedCurrencyPair}>Add
-                </button>
+                <Button variant="contained"
+                        color="primary"
+                        disabled={isPairSelected}
+                        onClick={addSelectedCurrencyPair}>
+                    Add
+                </Button>
             </div>
         </div>
     )
