@@ -46,11 +46,11 @@ const CurrencyPairSelectorComponent = (props: Props) => {
     }, []);
 
     useEffect(() => {
-        const leftCurrency = props.currencyItems.find(currency => currency.id === leftId);
-        const rightCurrency = props.currencyItems.find(currency => currency.id === rightId);
+        const primaryCurrency = props.currencyItems.find(currency => currency.id === leftId);
+        const secondaryCurrency = props.currencyItems.find(currency => currency.id === rightId);
 
-        if (leftCurrency && rightCurrency) {
-            props.onPairChange(new CurrencyPair(leftCurrency, rightCurrency));
+        if (primaryCurrency && secondaryCurrency) {
+            props.onPairChange(new CurrencyPair(primaryCurrency, secondaryCurrency));
         }
     }, [leftId, rightId]);
 

@@ -1,9 +1,9 @@
 import {ORMCommonState, TableState} from "redux-orm";
-import {Settings} from "../../settings";
+import {PlainSettings} from "../../settings";
 import {Currency, CurrencyPair} from "../../currency";
 
 export interface AppEntitiesState extends ORMCommonState {
-    Setting: TableState<Settings>,
+    Setting: TableState<PlainSettings>,
     Currency: TableState<Currency>,
     CurrencyPair: TableState<CurrencyPair>,
 }

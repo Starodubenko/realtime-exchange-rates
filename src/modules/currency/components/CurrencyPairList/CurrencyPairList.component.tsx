@@ -27,20 +27,20 @@ const CurrencyPairListComponent = memo((props: Props) => {
         props.watchRateAction(id);
     }, []);
 
-    const list = useMemo(() => {
-        return props.items.map(row => {
-            return (
-                <Paper key={row.id} className={s.Row}>
-                    <div className={s.PairString}>{row.toString()}</div>
-                    <Button variant="contained"
-                            color="primary"
-                            onClick={watchRate(row.id)}>
-                        Watch
-                    </Button>
-                </Paper>
-            )
-        })
-    }, [props.items]);
+    const list = useMemo(() => props.items.map(row => {
+        const pairString = row.extractUpperCaseCurrencyPairString();
+
+        return (
+            <Paper key={row.id} className={s.Row}>
+                <div className={s.PairString}>{pairString}</div>
+                <Button variant="contained"
+                        color="primary"
+                        onClick={watchRate(row.id)}>
+                    Watch
+                </Button>
+            </Paper>
+        )
+    }), [props.items]);
 
     return (
         <div className={s.Root}>

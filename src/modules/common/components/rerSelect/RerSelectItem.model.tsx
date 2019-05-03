@@ -1,5 +1,5 @@
-import {AbstractEntity} from "../../model";
+import {PlainAbstractEntity} from "../../model";
 
-export interface RerSelectItem extends AbstractEntity {
+export interface RerSelectItem extends PlainAbstractEntity {
     text: string;
 }

@@ -9,9 +9,10 @@ import {
     CurrencyPairList,
     currencyPairListSelector,
     CurrencyPairSelector,
+    PlainCurrencyPair,
     Rate,
-    rateListSelector,
-    RateList
+    RateList,
+    rateListSelector
 } from "../../../../currency";
 import {RootState} from "../../../../store";
 
@@ -23,18 +24,18 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    addToCurrencyPairList: ActionFunction1<CurrencyPair, Action<CurrencyPair>>;
+    addToCurrencyPairList: ActionFunction1<PlainCurrencyPair, Action<CurrencyPair>>;
 }
 
 type Props = StateProps & DispatchProps
 
 export const MainPageComponent = (props: Props) => {
-    const [selectedPairIds, setSelectedPairIds] = useState(null);
+    const [selectedPairIds, setSelectedPairIds] = useState<CurrencyPair>(null);
     const onPairChange = useCallback((currencyPair: CurrencyPair) => {
         setSelectedPairIds(currencyPair);
     }, []);
     const addSelectedCurrencyPair = useCallback(() => {
-        props.addToCurrencyPairList(selectedPairIds);
+        props.addToCurrencyPairList(selectedPairIds.toPlainObject());
         setSelectedPairIds(null);
     }, [selectedPairIds]);
     const isPairSelected = useMemo((): boolean => !selectedPairIds, [selectedPairIds]);

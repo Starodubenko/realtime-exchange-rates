@@ -1,7 +1,7 @@
 import {createSelector} from "redux-orm";
 import {appStateOrm, dbStateSelector} from "../../store/store.orm";
 import {RootState} from "../../store";
-import {Setting, Settings} from "../model";
+import {Setting, PlainSettings} from "../model";
 import {Period} from "../../common";
 
 export const settingListSelector = (appState: RootState) => createSelector(
@@ -13,9 +13,9 @@ export const settingListSelector = (appState: RootState) => createSelector(
     }
 )(appState.entities);
 
-export const settingByIdSelector = (appState: RootState, id: string): Settings => settingListSelector(appState).find(item => item.id === id);
+export const settingByIdSelector = (appState: RootState, id: string): PlainSettings => settingListSelector(appState).find(item => item.id === id);
 
-export const  settingByKeySelector = <K extends keyof Settings>(appState: RootState, id: string, settingKey: string): Settings[K] => settingByIdSelector(appState, id)[settingKey];
+export const  settingByKeySelector = <K extends keyof PlainSettings>(appState: RootState, id: string, settingKey: string): PlainSettings[K] => settingByIdSelector(appState, id)[settingKey];
 
 // todo убрать хардкодный айдишник настроек
 export const getTimeoutSetting = (appState: RootState, id: string = 'mySettings'): Period => settingByKeySelector<Setting.Period>(appState, id, Setting.Period);

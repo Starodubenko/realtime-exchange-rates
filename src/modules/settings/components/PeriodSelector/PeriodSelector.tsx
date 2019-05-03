@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 import {connect} from "react-redux";
 import {Action, ActionFunction1} from "redux-actions";
 import {Period, RerSelect, RerSelectItem} from "../../../common";
-import {Settings} from "../../model";
+import {PlainSettings} from "../../model";
 import {RootState} from "../../../store";
 import {updateSettingsAction} from "../../state";
 
@@ -26,7 +26,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    updateSettingsAction: ActionFunction1<Settings, Action<Settings>>;
+    updateSettingsAction: ActionFunction1<PlainSettings, Action<PlainSettings>>;
 }
 
 type Props = StateProps & DispatchProps;

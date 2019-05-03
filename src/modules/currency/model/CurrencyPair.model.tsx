@@ -1,15 +1,20 @@
-import {AbstractEntity} from "../../common";
+import {AbstractEntity, PlainAbstractEntity} from "../../common";
 import {Currency} from "./Currency.model";
 
-export class CurrencyPair extends AbstractEntity {
+export interface PlainCurrencyPair extends PlainAbstractEntity {
     /**
-        Left currency
-    */
+     Left currency
+     */
     primaryCurrency: Currency;
 
     /**
-        Right currency
-    */
+     Right currency
+     */
+    secondaryCurrency: Currency;
+}
+
+export class CurrencyPair extends AbstractEntity implements PlainCurrencyPair {
+    primaryCurrency: Currency;
     secondaryCurrency: Currency;
 
     constructor(primaryCurrency: Currency, secondaryCurrency: Currency) {
@@ -18,7 +23,23 @@ export class CurrencyPair extends AbstractEntity {
         this.secondaryCurrency = secondaryCurrency;
     }
 
-    toString() {
-        return this.primaryCurrency.name.toUpperCase() + this.secondaryCurrency.name.toUpperCase();
+    extractUpperCaseCurrencyPairString(): string {
+        return this.extractCurrencyPairString().toUpperCase();
+    };
+
+    extractLowerCaseCurrencyPairString(): string {
+        return this.extractCurrencyPairString().toLowerCase();
+    };
+
+    toPlainObject(): PlainCurrencyPair {
+        return {
+            id: this.id,
+            primaryCurrency: this.primaryCurrency,
+            secondaryCurrency: this.secondaryCurrency,
+        };
     }
+
+    private extractCurrencyPairString(): string {
+        return this.primaryCurrency.name + this.secondaryCurrency.name;
+    };
 }

@@ -1,11 +1,11 @@
 import {createReduxOrmModelReducer, ReduxOrmModelReducer} from "../../common";
 import {SettingsCreateActionType, SettingsDeleteActionType, SettingsUpdateActionType} from "./actions";
-import {Settings} from "../model";
+import {PlainSettings} from "../model";
 import {AppEntitiesState} from "../../store";
 
 export interface ISettingsActionHandlers {
-    [SettingsCreateActionType]: ReduxOrmModelReducer<Settings, AppEntitiesState>;
-    [SettingsUpdateActionType]: ReduxOrmModelReducer<Settings, AppEntitiesState>;
+    [SettingsCreateActionType]: ReduxOrmModelReducer<PlainSettings, AppEntitiesState>;
+    [SettingsUpdateActionType]: ReduxOrmModelReducer<PlainSettings, AppEntitiesState>;
     [SettingsDeleteActionType]: ReduxOrmModelReducer<string, AppEntitiesState>;
 }
 
@@ -21,4 +21,4 @@ export const settingsActionsMap: ISettingsActionHandlers = {
     }
 };
 
-export const settingsReducer = createReduxOrmModelReducer<ISettingsActionHandlers, Settings, AppEntitiesState>(settingsActionsMap);
+export const settingsReducer = createReduxOrmModelReducer<ISettingsActionHandlers, PlainSettings, AppEntitiesState>(settingsActionsMap);

@@ -1,4 +1,4 @@
-import {createSettingsAction} from "../../settings";
+import {createSettingsAction, Settings} from "../../settings";
 import {AppInitActionType} from "../state";
 import {createCurrencyListAction, Currency} from "../../currency";
 
@@ -9,17 +9,14 @@ export const appMiddleware  = state => next => action => {
     if (type === AppInitActionType) {
         setTimeout(() => {
             dispatch(createCurrencyListAction([
-                new Currency('1', 'rub', 'Rubble'),
-                new Currency('2', 'usd', 'US Dollar'),
-                new Currency('3', 'eur', 'Euro'),
-                new Currency('4', 'gbp', 'Great Britain Pound'),
-                new Currency('5', 'jpy', 'Japanese Yen'),
-                new Currency('6', 'cad', 'Canadian Dollar'),
+                new Currency('1', 'rub', 'Rubble').toPlainObject(),
+                new Currency('2', 'usd', 'US Dollar').toPlainObject(),
+                new Currency('3', 'eur', 'Euro').toPlainObject(),
+                new Currency('4', 'gbp', 'Great Britain Pound').toPlainObject(),
+                new Currency('5', 'jpy', 'Japanese Yen').toPlainObject(),
+                new Currency('6', 'cad', 'Canadian Dollar').toPlainObject(),
             ]));
-            dispatch(createSettingsAction({
-                id: 'mySettings',
-                period: 1000,
-            }));
+            dispatch(createSettingsAction(new Settings('mySettings', 1000).toPlainObject()));
         }, 0);
     }
 

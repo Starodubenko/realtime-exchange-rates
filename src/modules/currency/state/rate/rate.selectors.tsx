@@ -10,10 +10,9 @@ export const rateListSelector = (appState: RootState): Rate[] => createSelector(
         return session.Rate.all().toModelArray().map(rate => {
             const primaryCurrency = rate.pair.primaryCurrency.ref;
             const secondaryCurrency = rate.pair.secondaryCurrency.ref;
-            return new Rate(
-                new CurrencyPair(primaryCurrency, secondaryCurrency),
-                rate.value
-            );
+            const currencyPair = new CurrencyPair(primaryCurrency, secondaryCurrency);
+
+            return new Rate(currencyPair, rate.value);
         });
     }
 )(appState.entities);

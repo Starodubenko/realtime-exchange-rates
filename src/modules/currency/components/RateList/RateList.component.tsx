@@ -30,10 +30,11 @@ const RateListComponent = (props: Props) => {
 
     const renderList = useMemo(() => props.list.map(row => {
         const rateValue = row.value && row.value.toFixed(2);
+        const pairString = row.pair.extractUpperCaseCurrencyPairString();
 
         return (
             <Paper key={row.id} className={s.Row}>
-                <div className={s.PairString}>{row.pair.toString()}</div>
+                <div className={s.PairString}>{pairString}</div>
                 <div>{rateValue}</div>
                 <Button variant="contained"
                         color="secondary"

@@ -13,17 +13,18 @@
 .Lists {
   display: flex;
   height: 400px;
-  overflow: auto;
 }
 
 .CurrencyPairList {
   display: flex;
   width: 50%;
+  overflow: auto;
 }
 
 .RateLists {
   display: flex;
   width: 50%;
+  overflow: auto;
 }
 
 .CurrencyPairSelector {

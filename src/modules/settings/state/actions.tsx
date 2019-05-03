@@ -1,10 +1,10 @@
 import {createAction} from "redux-actions";
-import {Settings} from "../model";
+import {PlainSettings} from "../model";
 
-export const SettingsCreateActionType = 'Settings/create';
-export const SettingsUpdateActionType = 'Settings/update';
-export const SettingsDeleteActionType = 'Settings/delete';
+export const SettingsCreateActionType = 'PlainSettings/create';
+export const SettingsUpdateActionType = 'PlainSettings/update';
+export const SettingsDeleteActionType = 'PlainSettings/delete';
 
-export const createSettingsAction = createAction<Settings>(SettingsCreateActionType);
-export const updateSettingsAction = createAction<Settings>(SettingsUpdateActionType);
-export const deleteSettingsAction = createAction<Settings>(SettingsDeleteActionType);
+export const createSettingsAction = createAction<PlainSettings>(SettingsCreateActionType);
+export const updateSettingsAction = createAction<PlainSettings>(SettingsUpdateActionType);
+export const deleteSettingsAction = createAction<PlainSettings>(SettingsDeleteActionType);

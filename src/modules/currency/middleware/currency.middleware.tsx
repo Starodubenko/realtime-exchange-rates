@@ -29,11 +29,9 @@ export const currencyMiddleware  = state => next => (action: Action<any>) => {
             let isFirsTime = true;
 
             function updatePrice(newPrice: number) {
-                // todo Сделать утильную функцмю, чтобы генерировать айдишник новому Rate
-                const newRateId = 'rate' + currencyPair.id;
-                const rateToUpdate = rateByIdSelector(state.getState(), newRateId);
+                const rateToUpdate = rateByIdSelector(state.getState(), new Rate(currencyPair).id);
                 rateToUpdate.value = newPrice;
-                dispatch(updateRateAction(rateToUpdate));
+                dispatch(updateRateAction(rateToUpdate.toPlainObject()));
                 updateTimeout = null;
             }
 
@@ -52,7 +50,7 @@ export const currencyMiddleware  = state => next => (action: Action<any>) => {
             });
 
             connection.on('unsubscribe-res', (data) => {
-                dispatch(deleteRateAction('rate' + currencyPair.id));
+                dispatch(deleteRateAction(new Rate(currencyPair).id));
                 clearTimeout(updateTimeout);
             });
         });
@@ -69,11 +67,11 @@ export const currencyMiddleware  = state => next => (action: Action<any>) => {
             const connection = sockets.get(currencyPairId);
 
             connection.emit('subscribe-req', {
-                pair: currencyPair.toString().toLowerCase(),
+                pair: currencyPair.extractLowerCaseCurrencyPairString(),
                 uid: Math.random(),
             });
 
-            dispatch(addRateAction(newRate));
+            dispatch(addRateAction(newRate.toPlainObject()));
         }
     }
 
@@ -83,7 +81,7 @@ export const currencyMiddleware  = state => next => (action: Action<any>) => {
         const connection = sockets.get(currencyPairId);
 
         connection.emit('unsubscribe-req', {
-            pair: currencyPair.toString().toLowerCase(),
+            pair: currencyPair.extractLowerCaseCurrencyPairString(),
             uid: Math.random(),
         });
     }

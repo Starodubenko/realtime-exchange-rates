@@ -25,7 +25,7 @@ const AppComponent = (props: Props) => {
         ? <Switch>
             <Route exact path="/" component={MainPage}/>
         </Switch>
-        : 'Settings are fetching...', [props.hasSettings]);
+        : 'PlainSettings are fetching...', [props.hasSettings]);
 
     useEffect(() => {
         props.appInitAction();

@@ -1,20 +1,33 @@
-import {AbstractEntity} from "../../common";
-import {CurrencyPair} from "./index";
+import {AbstractEntity, PlainAbstractEntity} from "../../common";
+import {CurrencyPair, PlainCurrencyPair} from "./index";
 
-export class Rate extends AbstractEntity {
+export interface PlainRate extends PlainAbstractEntity {
     /**
-        Couple of currencies against which the rate is calculated
-    */
+     Couple of currencies against which the rate is calculated
+     */
+    pair: PlainCurrencyPair;
+
+    /**
+     Calculated rate
+     */
+    value?: number;
+}
+
+export class Rate extends AbstractEntity implements PlainRate {
     pair: CurrencyPair;
-
-    /**
-        Calculated rate
-    */
     value: number;
 
     constructor(pair: CurrencyPair, value: number = null) {
         super('rate' + pair.id);
         this.pair = pair;
         this.value = value;
+    }
+
+    toPlainObject(): PlainRate {
+        return {
+            id: this.id,
+            pair: this.pair.toPlainObject(),
+            value: this.value,
+        }
     }
 }

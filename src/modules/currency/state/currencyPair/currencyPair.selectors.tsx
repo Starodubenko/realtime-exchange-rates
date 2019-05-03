@@ -7,11 +7,11 @@ export const currencyPairListSelector = (appState: RootState): CurrencyPair[] =>
     appStateOrm,
     dbStateSelector,
     session => {
-        return session.CurrencyPair.all().toModelArray().map(currencyPair => {
-            return new CurrencyPair(
-                currencyPair.primaryCurrency.ref,
-                currencyPair.secondaryCurrency.ref
-            );
+        return session.CurrencyPair.all().toModelArray().map<CurrencyPair>(currencyPair => {
+            const primaryCurrency = currencyPair.primaryCurrency.ref;
+            const secondaryCurrency = currencyPair.secondaryCurrency.ref;
+
+            return new CurrencyPair(primaryCurrency, secondaryCurrency);
         });
     }
 )(appState.entities);
