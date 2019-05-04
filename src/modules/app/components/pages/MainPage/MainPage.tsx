@@ -30,15 +30,17 @@ interface DispatchProps {
 type Props = StateProps & DispatchProps
 
 export const MainPageComponent = (props: Props) => {
-    const [selectedPairIds, setSelectedPairIds] = useState<CurrencyPair>(null);
+    const [selectedPair, setSelectedPairIds] = useState<CurrencyPair>(null);
     const onPairChange = useCallback((currencyPair: CurrencyPair) => {
         setSelectedPairIds(currencyPair);
     }, []);
     const addSelectedCurrencyPair = useCallback(() => {
-        props.addToCurrencyPairList(selectedPairIds.toPlainObject());
+        props.addToCurrencyPairList(selectedPair.toPlainObject());
         setSelectedPairIds(null);
-    }, [selectedPairIds]);
-    const isPairSelected = useMemo((): boolean => !selectedPairIds, [selectedPairIds]);
+    }, [selectedPair]);
+    const isPairInList = useMemo((): boolean => {
+        return selectedPair && props.currencyPairList.some(pair => pair.id === selectedPair.id);
+    }, [selectedPair]);
 
     return (
         <div className={s.Root}>
@@ -58,7 +60,7 @@ export const MainPageComponent = (props: Props) => {
                 <CurrencyPairSelector onPairChange={onPairChange}/>
                 <Button variant="contained"
                         color="primary"
-                        disabled={isPairSelected}
+                        disabled={!selectedPair || isPairInList}
                         onClick={addSelectedCurrencyPair}>
                     Add
                 </Button>

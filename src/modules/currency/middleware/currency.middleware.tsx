@@ -19,7 +19,6 @@ export const currencyMiddleware  = state => next => (action: Action<any>) => {
     const {dispatch, getState} = state;
     const {type} = action;
 
-    // todo Сделать так, чтобы нельзя было добовлять одинаковые пары в список
     if (type === AddToCurrencyPairListActionType) {
         const currencyPair = action.payload;
         const connection = io('prices-server-mock.spotware.com:8084');
