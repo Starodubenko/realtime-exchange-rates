@@ -10,4 +10,9 @@ jobs:
       - checkout
 
       - run: npm install
-      - run: npm test
+      - run: npm test -- --coverage
+
+      - setup_remote_docker
+      - run: docker build -t starodubenko/realtime-exchange-rates .
+      - run: echo $DOCKER_PASSWORD | docker login -u "$DOCKER_ID" --password-stdin
+      - run: docker push starodubenko/realtime-exchange-rates
