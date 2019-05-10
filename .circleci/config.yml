@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  test:
     docker:
       - image: circleci/node:11.13.0
 
@@ -12,7 +12,24 @@ jobs:
       - run: npm install
       - run: npm test -- --coverage
 
+  build:
+    docker:
+      - image: circleci/node:11.13.0
+
+    working_directory: ~/repo
+
+    steps:
       - setup_remote_docker
       - run: docker build -t starodubenko/realtime-exchange-rates .
       - run: echo $DOCKER_PASSWORD | docker login -u "$DOCKER_ID" --password-stdin
       - run: docker push starodubenko/realtime-exchange-rates
+
+workflows:
+  version: 2
+
+  frontend:
+    jobs:
+      - test
+      - build:
+        requires:
+          - test
