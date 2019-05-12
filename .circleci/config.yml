@@ -1,5 +1,6 @@
 version: 2
 jobs:
+  checkout:
   test:
     docker:
       - image: circleci/node:11.13.0
@@ -19,11 +20,13 @@ jobs:
     working_directory: ~/repo
 
     steps:
-      - checkout
       - setup_remote_docker
       - run: docker build -t starodubenko/realtime-exchange-rates .
       - run: echo $DOCKER_PASSWORD | docker login -u "$DOCKER_ID" --password-stdin
       - run: docker push starodubenko/realtime-exchange-rates
+
+  publish:
+
 
 workflows:
   version: 2
