@@ -1,7 +1,13 @@
 version: 2
 jobs:
   checkout-repo:
-    - checkout
+    docker:
+      - image: circleci/node:11.13.0
+
+      working_directory: ~/repo
+
+      steps:
+        - checkout
 
   test:
     docker:
@@ -24,8 +30,14 @@ jobs:
       - run: docker build -t starodubenko/realtime-exchange-rates .
 
   publish:
-    - run: echo $DOCKER_PASSWORD | docker login -u "$DOCKER_ID" --password-stdin
-    - run: docker push starodubenko/realtime-exchange-rates
+    docker:
+      - image: circleci/node:11.13.0
+
+      working_directory: ~/repo
+
+      steps:
+        - run: echo $DOCKER_PASSWORD | docker login -u "$DOCKER_ID" --password-stdin
+        - run: docker push starodubenko/realtime-exchange-rates
 
 
 workflows:
