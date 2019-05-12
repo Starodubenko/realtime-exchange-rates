@@ -34,7 +34,7 @@ workflows:
   frontend:
     jobs:
       - checkout-repo
-      - test
+      - test:
           requires:
             - checkout-repo
       - build:
