@@ -4,8 +4,6 @@ jobs:
     docker:
       - image: circleci/node:11.13.0
 
-    working_directory: ~/repo
-
     steps:
       - checkout
       - run: npm install
@@ -14,16 +12,13 @@ jobs:
     docker:
       - image: circleci/node:11.13.0
 
-    working_directory: ~/repo
-
     steps:
+      - checkout
       - run: npm test -- --coverage
 
   build:
     docker:
       - image: circleci/node:11.13.0
-
-    working_directory: ~/repo
 
     steps:
       - setup_remote_docker
@@ -32,8 +27,6 @@ jobs:
   publish:
     docker:
       - image: circleci/node:11.13.0
-
-    working_directory: ~/repo
 
     steps:
       - run: echo $DOCKER_PASSWORD | docker login -u "$DOCKER_ID" --password-stdin
