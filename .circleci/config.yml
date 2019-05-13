@@ -1,19 +1,12 @@
 version: 2
 jobs:
-  checkout-repo:
-    docker:
-      - image: circleci/node:11.13.0
-
-    steps:
-      - checkout
-      - run: npm install
-
   test:
     docker:
       - image: circleci/node:11.13.0
 
     steps:
       - checkout
+      - run: npm install
       - run: npm test -- --coverage
 
   build:
@@ -38,10 +31,7 @@ workflows:
 
   frontend:
     jobs:
-      - checkout-repo
-      - test:
-          requires:
-            - checkout-repo
+      - test
       - build:
           requires:
             - test
